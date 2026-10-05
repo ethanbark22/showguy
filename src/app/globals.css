@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #111111;
+  --color-paper: #f5f0e6;
+  --color-sun: #ffd43b;
+  --color-flame: #ff5a36;
+  --color-lilac: #cdbcff;
+  --color-mint: #bdeccb;
+  --color-muted: #4b4740;
+  --font-display: var(--nf-display), "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--nf-body), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  background: var(--color-paper);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+/* Anchor jumps shouldn't hide under the sticky header */
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.on-dark :focus-visible {
+  outline-color: var(--color-sun);
+}
+::selection {
+  background: var(--color-sun);
+  color: var(--color-ink);
+}
+
+/* ---------- Type scale (fluid) ---------- */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+}
+@utility text-mega {
+  font-size: clamp(2.6rem, 11.2vw, 9rem);
+}
+@utility text-hero {
+  font-size: clamp(2.7rem, 5vw + 1.5rem, 6.25rem);
+}
+@utility text-huge {
+  font-size: clamp(2.3rem, 8vw, 6.5rem);
+}
+@utility text-big {
+  font-size: clamp(1.9rem, 5vw, 4rem);
+}
+@utility outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px currentColor;
+}
+
+/* ---------- Motion ---------- */
+@keyframes rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Headline lines slide up from behind a mask on page load */
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.line > span {
+  display: block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .line > span {
+    animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 0.12s + 0.1s);
+  }
+  .fade-up {
+    animation: fade-up 0.8s ease both;
+    animation-delay: var(--d, 0.5s);
+  }
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .spin-slow {
+    animation: spin-slow 24s linear infinite;
+  }
+  .marquee-track {
+    animation: marquee 32s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Scroll reveal, pure CSS: browsers without support just show the content. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: fade-up 1s ease both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+/* Marker-pen highlight that wraps cleanly across lines and never gets clipped */
+.mark {
+  background: linear-gradient(transparent 58%, var(--color-sun) 58%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  font-style: normal;
+}

@@ -17,7 +17,7 @@ type Props = {
 };
 
 const inputStyles =
-  "w-full min-h-12 rounded-2xl border-2 border-ink bg-white px-4 py-3 text-base text-ink placeholder:text-ink/40 aria-[invalid=true]:border-flame aria-[invalid=true]:bg-flame/10";
+  "w-full min-h-12 rounded-2xl border-2 border-paper/25 bg-plum px-4 py-3 text-base text-paper placeholder:text-mute-text focus:border-violet aria-[invalid=true]:border-danger";
 
 /** Renders a form from field definitions and sends it to a server action. */
 export function DynamicForm({ groups, action, submitLabel, successTitle, successBody, successExtra, idPrefix }: Props) {
@@ -49,7 +49,7 @@ export function DynamicForm({ groups, action, submitLabel, successTitle, success
 
   if (state.status === "success") {
     return (
-      <div role="status" className="rounded-[2rem] border-2 border-ink bg-mint p-8 sm:p-12">
+      <div role="status" className="rounded-[2rem] bg-lav p-8 text-ink sm:p-12">
         <h2 className="display text-big">{successTitle}</h2>
         <p className="mt-4 max-w-xl text-lg leading-relaxed">{successBody}</p>
         {successExtra}
@@ -65,7 +65,7 @@ export function DynamicForm({ groups, action, submitLabel, successTitle, success
   return (
     <form onSubmit={onSubmit} noValidate={false} className="space-y-10" aria-busy={pending}>
       {state.status === "error" && (
-        <div ref={errorRef} tabIndex={-1} role="alert" className="rounded-2xl border-2 border-flame bg-flame/15 p-4 font-medium">
+        <div ref={errorRef} tabIndex={-1} role="alert" className="rounded-2xl border-2 border-danger bg-danger/10 p-4 font-medium">
           {state.message}
         </div>
       )}
@@ -93,9 +93,9 @@ export function DynamicForm({ groups, action, submitLabel, successTitle, success
         <Button type="submit" disabled={pending} className="w-full sm:w-auto">
           {pending ? "Sending…" : submitLabel}
         </Button>
-        <p className="mt-4 max-w-xl text-sm text-muted">
+        <p className="mt-4 max-w-xl text-sm text-mute-text">
           We&rsquo;ll only use your details to reply to you. See our{" "}
-          <Link href="/privacy" className="font-bold underline underline-offset-2">
+          <Link href="/privacy" className="font-bold text-lav underline underline-offset-2">
             Privacy Policy
           </Link>
           .
@@ -125,14 +125,14 @@ function FieldControl({ field: f, id, error }: { field: Field; id: string; error
       <label htmlFor={id} className="mb-1.5 block font-bold">
         {f.label}
         {f.required && (
-          <span aria-hidden="true" className="text-flame">
+          <span aria-hidden="true" className="text-lav">
             {" "}
             *
           </span>
         )}
       </label>
       {f.hint && (
-        <p id={hintId} className="mb-1.5 text-sm text-muted">
+        <p id={hintId} className="mb-1.5 text-sm text-mute-text">
           {f.hint}
         </p>
       )}
@@ -160,7 +160,7 @@ function FieldControl({ field: f, id, error }: { field: Field; id: string; error
         />
       )}
       {error && (
-        <p id={errId} className="mt-1.5 text-sm font-bold text-[#b3270c]">
+        <p id={errId} className="mt-1.5 text-sm font-bold text-danger">
           {error}
         </p>
       )}

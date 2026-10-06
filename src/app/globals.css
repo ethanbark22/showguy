@@ -1,19 +1,32 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #111111;
-  --color-paper: #f5f0e6;
-  --color-sun: #ffd43b;
-  --color-flame: #ff5a36;
-  --color-lilac: #cdbcff;
-  --color-mint: #bdeccb;
-  --color-muted: #4b4740;
+  /* SHOWGUY palette: dark and purple-led. Edit the hex values here to retune the whole site. */
+  --color-ink: #0d0d10; /* primary dark */
+  --color-plum: #17131f; /* secondary dark (dark purple-black) */
+  --color-deep: #3a2288; /* deep purple, for big dark-purple panels */
+  --color-violet: #8b5cf6; /* primary purple: accents, graphics, highlights */
+  --color-violet-strong: #7a47ee; /* purple for button fills (passes contrast with off-white text) */
+  --color-lav: #c4b5fd; /* light purple */
+  --color-paper: #f4f0e8; /* off-white */
+  --color-mute: #777184; /* muted purple-grey: big background type, rules */
+  --color-mute-text: #a29cb0; /* small secondary copy on dark backgrounds */
+  --color-ink-soft: #5a5468; /* small secondary copy on off-white backgrounds */
+  --color-star: #ffd43b; /* the SHOWGUY star yellow. Use VERY sparingly */
+  --color-danger: #ff9aa8; /* form errors on dark backgrounds */
   --font-display: var(--nf-display), "Arial Black", "Helvetica Neue", Arial, sans-serif;
   --font-sans: var(--nf-body), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+:root {
+  --focus: var(--color-lav);
+}
+.on-light {
+  --focus: var(--color-ink);
+}
+
 html {
-  background: var(--color-paper);
+  background: var(--color-ink);
 }
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -21,11 +34,22 @@ html {
   }
 }
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
   font-family: var(--font-sans);
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
+}
+/* Very faint film grain across the whole site, for depth without noise */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 /* Anchor jumps shouldn't hide under the sticky header */
 [id] {
@@ -33,16 +57,13 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-ink);
+  outline: 3px solid var(--focus);
   outline-offset: 3px;
   border-radius: 6px;
 }
-.on-dark :focus-visible {
-  outline-color: var(--color-sun);
-}
 ::selection {
-  background: var(--color-sun);
-  color: var(--color-ink);
+  background: var(--color-violet);
+  color: var(--color-paper);
 }
 
 /* ---------- Type scale (fluid) ---------- */
@@ -57,7 +78,7 @@ body {
   font-size: clamp(2.6rem, 11.2vw, 9rem);
 }
 @utility text-hero {
-  font-size: clamp(2.7rem, 5vw + 1.5rem, 6.25rem);
+  font-size: clamp(2.7rem, 6.2vw + 1.1rem, 8rem);
 }
 @utility text-huge {
   font-size: clamp(2.3rem, 8vw, 6.5rem);
@@ -65,9 +86,15 @@ body {
 @utility text-big {
   font-size: clamp(1.9rem, 5vw, 4rem);
 }
+/* Outlined type. The fill matches the background so the font's internal
+   overlaps never show through; only the clean outer edge is drawn. */
 @utility outline-text {
-  color: transparent;
-  -webkit-text-stroke: 2px currentColor;
+  color: var(--fill, var(--color-ink));
+  -webkit-text-stroke: clamp(1.5px, 0.25vw, 3px) var(--stroke, var(--color-mute));
+  paint-order: stroke fill;
+}
+@utility text-division {
+  font-size: clamp(1.8rem, calc((100vw - 2.5rem) / 9.2), 7rem);
 }
 
 /* ---------- Motion ---------- */
@@ -152,8 +179,73 @@ body {
 
 /* Marker-pen highlight that wraps cleanly across lines and never gets clipped */
 .mark {
-  background: linear-gradient(transparent 58%, var(--color-sun) 58%);
+  background: linear-gradient(transparent 56%, var(--color-violet) 56%);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   font-style: normal;
+}
+
+/* ---------- Vision list: one word lit at a time ---------- */
+@keyframes spot {
+  0%,
+  15% {
+    color: var(--color-violet);
+    -webkit-text-stroke-color: var(--color-violet);
+    transform: translateX(14px);
+  }
+  20%,
+  100% {
+    color: var(--color-ink);
+    -webkit-text-stroke-color: var(--color-mute);
+    transform: translateX(0);
+  }
+}
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--dir, 1) * 48px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.vision-word {
+  transition: color 0.3s, -webkit-text-stroke-color 0.3s, transform 0.3s;
+}
+.vision-word:hover {
+  color: var(--color-violet);
+  -webkit-text-stroke-color: var(--color-violet);
+  transform: translateX(14px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vision-word {
+    animation: spot 18s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 3s);
+  }
+  .vision-word:hover {
+    animation: none;
+  }
+  @supports (animation-timeline: view()) {
+    .slide-in {
+      animation: slide-in 1s ease both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* No cycling: Artist Services, the thing we do today, stays lit */
+  li:first-child > .vision-word {
+    color: var(--color-violet);
+    -webkit-text-stroke-color: var(--color-violet);
+  }
+}
+
+/* Thin editorial grid for the Results panel */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgb(244 240 232 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(244 240 232 / 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
 }

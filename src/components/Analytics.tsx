@@ -86,11 +86,11 @@ function ConsentBanner() {
     <div
       role="region"
       aria-label="Cookie consent"
-      className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-2xl rounded-3xl border-2 border-ink bg-paper p-5 shadow-[6px_6px_0_0_#111] sm:p-6"
+      className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-2xl rounded-3xl border-2 border-violet bg-plum p-5 text-paper sm:p-6"
     >
       <p className="text-sm leading-relaxed">
         We&rsquo;d like to use cookies to see how people find us and which of our ads are working. Nothing loads unless you say yes.{" "}
-        <a href="/cookies" className="font-bold underline underline-offset-2">
+        <a href="/cookies" className="font-bold text-lav underline underline-offset-2">
           Cookie Policy
         </a>
       </p>
@@ -98,14 +98,14 @@ function ConsentBanner() {
         <button
           type="button"
           onClick={() => write("granted")}
-          className="min-h-11 rounded-full bg-ink px-6 text-sm font-bold uppercase tracking-wide text-paper hover:bg-flame hover:text-ink"
+          className="min-h-11 rounded-full bg-violet-strong px-6 text-sm font-bold uppercase tracking-wide text-paper hover:bg-lav hover:text-ink"
         >
           Accept
         </button>
         <button
           type="button"
           onClick={() => write("denied")}
-          className="min-h-11 rounded-full border-2 border-ink px-6 text-sm font-bold uppercase tracking-wide hover:bg-ink hover:text-paper"
+          className="min-h-11 rounded-full border-2 border-paper/60 px-6 text-sm font-bold uppercase tracking-wide hover:border-violet hover:bg-violet-strong"
         >
           Reject
         </button>
@@ -117,7 +117,7 @@ function ConsentBanner() {
 /** Footer link that lets people change their mind. */
 export function CookieSettingsButton() {
   return (
-    <button type="button" onClick={() => write(null)} className="text-left hover:text-sun">
+    <button type="button" onClick={() => write(null)} className="text-left hover:text-lav">
       Cookie settings
     </button>
   );

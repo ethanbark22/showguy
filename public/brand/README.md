@@ -4,12 +4,14 @@ Replace each placeholder with the real file, **keeping the same file name**. The
 
 | File | What it is | Suggested size |
 |---|---|---|
-| `logo.svg` | Main logo, for **light** backgrounds (the header) | SVG, ~220 × 48 |
-| `logo-dark.svg` | Logo version for **dark** backgrounds (the footer) | SVG, same proportions |
+| `logo.svg` | Logo coloured for **light** backgrounds (rarely needed: the site is mostly dark) | SVG, ~290 × 48 |
+| `logo-dark.svg` | Logo coloured for **dark** backgrounds (**used in the header and footer**) | SVG, same proportions |
 | `mascot.png` | Main mascot (hero, About) | PNG with transparent background, 800 × 1000 |
 | `mascot-wave.png` | Waving / pointing mascot (CTA, problem section, apply page) | PNG, transparent, 800 × 1000 |
 | `favicon.svg` | Browser tab icon | SVG, square |
 | `social-card.jpg` | Picture shown when the site is shared on social media | JPG, 1200 × 630 |
 
-If your mascot images are a different shape, change `width` and `height` in `src/config/brand.ts`.
+Convert any text in your logo to outlines before exporting, so it can never be clipped or change font on someone else's device.
+
+The mascot is placed on purple discs and panels around the site, so a transparent background matters. If your mascot images are a different shape, change `width` and `height` in `src/config/brand.ts`.
 To add more mascot poses later, add the file here and a new entry in `brand.ts`.

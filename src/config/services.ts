@@ -1,30 +1,30 @@
 export type Service = {
   title: string;
   body: string;
-  /** Card colour. One of: sun, flame, lilac, mint, paper */
-  tone: "sun" | "flame" | "lilac" | "mint" | "paper";
+  /** Card colour: all shades of the purple/dark palette. */
+  tone: "deep" | "lav" | "dark" | "violet" | "paper" | "plum";
 };
 
 export const services: Service[] = [
   {
     title: "Content Strategy",
     body: "We plan what the artist should create, how it should be positioned and how content supports upcoming releases.",
-    tone: "sun",
+    tone: "deep",
   },
   {
     title: "Short-Form Content",
     body: "We turn artist footage into TikToks, Instagram Reels and YouTube Shorts designed for attention and discovery.",
-    tone: "lilac",
+    tone: "lav",
   },
   {
     title: "Release Campaigns",
     body: "We create structured marketing plans before, during and after releases rather than letting songs disappear after release day.",
-    tone: "flame",
+    tone: "dark",
   },
   {
     title: "Creator Outreach",
     body: "We identify relevant creators and opportunities to help music reach new audiences through legitimate outreach and collaborations.",
-    tone: "mint",
+    tone: "violet",
   },
   {
     title: "Fan Growth",
@@ -34,7 +34,7 @@ export const services: Service[] = [
   {
     title: "Analytics & Strategy",
     body: "We track what is working, explain why and adapt the following month's strategy accordingly.",
-    tone: "sun",
+    tone: "plum",
   },
 ];
 

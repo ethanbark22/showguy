@@ -7,11 +7,11 @@
  */
 export const brand = {
   logo: {
-    /** Dark logo, used on light backgrounds (the header). */
+    /** Dark-coloured logo, for LIGHT backgrounds (the site is mostly dark now, so this is rarely used). */
     onLight: "/brand/logo.svg",
-    /** Light logo, used on dark backgrounds (the footer). */
+    /** Light-coloured logo, for DARK backgrounds (used in the header and footer). */
     onDark: "/brand/logo-dark.svg",
-    width: 220,
+    width: 289, // if your final logo has a different shape, change width/height to match its proportions
     height: 48,
     alt: "SHOWGUY",
   },

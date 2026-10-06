@@ -26,7 +26,7 @@ export function MobileNav() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-ink px-4 text-sm font-bold uppercase tracking-wide"
+        className="inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-paper/60 px-4 text-sm font-bold uppercase tracking-wide"
       >
         {open ? "Close" : "Menu"}
       </button>
@@ -34,7 +34,7 @@ export function MobileNav() {
       {open && (
         <div
           id="mobile-menu"
-          className="on-dark fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-ink px-5 py-8 text-paper"
+          className="fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-plum px-5 py-8 text-paper"
         >
           <nav aria-label="Mobile">
             <ul className="space-y-1">
@@ -43,7 +43,7 @@ export function MobileNav() {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className={`display block py-3 text-5xl ${item === primaryCta ? "text-sun" : ""}`}
+                    className={`display block py-3 text-5xl ${item === primaryCta ? "text-violet" : ""}`}
                   >
                     {item.label}
                   </Link>

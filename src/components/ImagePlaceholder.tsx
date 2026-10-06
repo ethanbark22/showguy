@@ -13,7 +13,7 @@ export function ImagePlaceholder({
     <div
       role="img"
       aria-label={label}
-      className={`grid aspect-[4/3] place-items-center rounded-3xl border-2 border-dashed border-current/40 bg-ink/5 p-4 text-center text-xs font-bold uppercase tracking-widest opacity-70 ${className}`}
+      className={`grid aspect-[4/3] place-items-center rounded-3xl border-2 border-dashed border-current/40 bg-ink/[0.06] p-4 text-center text-xs font-bold uppercase tracking-widest opacity-70 ${className}`}
     >
       {label}
     </div>

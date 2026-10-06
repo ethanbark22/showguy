@@ -41,6 +41,8 @@ npm run build
 
 Tip: ask Claude Code, "change the hero text to …", and it will find the right file.
 
+**Colours:** the whole palette is defined once at the top of `src/app/globals.css` (near-black, dark purple, purple, light purple, off-white, plus the SHOWGUY star yellow, used sparingly). Change a hex value there and the whole site follows.
+
 Copy rules we've followed: British English, no fake clients, testimonials, results or press. Please keep it that way until you have the real thing.
 
 ## 4. Change the pricing

@@ -21,7 +21,7 @@ export function Results() {
           <div className="reveal rounded-[2rem] border-2 border-dashed border-ink p-8 sm:p-14">
             <SectionHeading id="results-title" eyebrow="Results" size="huge" title={"We're building the first SHOWGUY case studies right now."} />
             <p className="mt-6 max-w-2xl text-lg leading-relaxed sm:text-xl">
-              That&rsquo;s why our founding artists get our lowest monthly rate and direct founder involvement. When there are real results to show, they&rsquo;ll go here, with the numbers and the artist&rsquo;s permission.
+              That&rsquo;s why our founding artists get our lowest-ever monthly rate and direct founder involvement. When there are real results to show, they&rsquo;ll go here, with the numbers and the artist&rsquo;s permission.
             </p>
             <ButtonLink href="/apply" className="mt-8">
               Be one of the first

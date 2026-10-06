@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 import { validateField, type Field, type FieldGroup, type FormState } from "@/lib/forms";
 import { site } from "@/config/site";
@@ -10,8 +11,14 @@ type Props = {
   groups: FieldGroup[];
   action: (formData: FormData) => Promise<FormState>;
   submitLabel: string;
-  /** Shown instead of the form once it has been sent. */
-  success: ReactNode;
+  /** Shown instead of the form once it has been sent (unless `successHref` is set). */
+  success?: ReactNode;
+  /** Go to this page after a successful send, instead of showing `success`. */
+  successHref?: string;
+  /** Called once, the first time someone interacts with the form. */
+  onStart?: () => void;
+  /** Called after a successful send. */
+  onSuccess?: () => void;
   /** Used to prefix element ids so two forms never clash. */
   idPrefix: string;
   /** Optional rule that looks across several answers (e.g. "at least one link"). */
@@ -33,7 +40,10 @@ const fieldBase =
   "block w-full min-h-[3.25rem] rounded-xl border-2 border-line-strong bg-field px-4 py-3 text-base text-paper outline-none placeholder:text-mute-text/80 transition-[border-color,box-shadow] duration-200 focus:border-violet focus:shadow-[0_0_0_4px_rgb(139_92_246/0.28)] aria-[invalid=true]:border-danger aria-[invalid=true]:focus:shadow-[0_0_0_4px_rgb(255_154_168/0.22)]";
 
 /** Renders a form from field definitions and sends it to a server action. */
-export function DynamicForm({ groups, action, submitLabel, success, idPrefix, cross, closing, showRequiredNote, closingExtra }: Props) {
+export function DynamicForm({ groups, action, submitLabel, success, successHref, onStart, onSuccess, idPrefix, cross, closing, showRequiredNote, closingExtra }: Props) {
+  const router = useRouter();
+  const started = useRef(false);
+  const [redirecting, setRedirecting] = useState(false);
   const allFields = groups.flatMap((g) => g.fields);
   const byName = Object.fromEntries(allFields.map((f) => [f.name, f]));
 
@@ -133,7 +143,13 @@ export function DynamicForm({ groups, action, submitLabel, success, idPrefix, cr
       try {
         const result = await action(formData);
         if (result.status === "success") {
-          setDone(true);
+          onSuccess?.();
+          if (successHref) {
+            setRedirecting(true);
+            router.push(successHref);
+          } else {
+            setDone(true);
+          }
         } else if (result.status === "error") {
           const fieldErrors = result.fieldErrors ?? {};
           setErrors(fieldErrors);
@@ -166,6 +182,12 @@ export function DynamicForm({ groups, action, submitLabel, success, idPrefix, cr
       onSubmit={onSubmit}
       onBlur={onBlur}
       onChange={onChange}
+      onFocus={() => {
+        if (!started.current) {
+          started.current = true;
+          onStart?.();
+        }
+      }}
       noValidate
       aria-busy={pending}
       className="rounded-[1.75rem] border border-line bg-surface p-5 sm:p-8 lg:p-10"
@@ -258,8 +280,8 @@ export function DynamicForm({ groups, action, submitLabel, success, idPrefix, cr
           </div>
         )}
 
-        <Button type="submit" disabled={pending} className={`w-full sm:w-auto ${closing || banner ? "mt-6" : ""}`}>
-          {pending ? "Sending…" : submitLabel}
+        <Button type="submit" disabled={pending || redirecting} className={`w-full sm:w-auto ${closing || banner ? "mt-6" : ""}`}>
+          {redirecting ? "Sent. One moment…" : pending ? "Sending…" : submitLabel}
         </Button>
         <p className="mt-4 max-w-md text-sm text-mute-text">
           We only use your details to review your application and respond to you.{" "}

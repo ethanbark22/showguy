@@ -5,12 +5,12 @@ type Props = {
   /** Use \n to break the headline onto separate lines. */
   title: string;
   id?: string;
-  size?: "mega" | "huge" | "big";
+  size?: "mega" | "huge" | "big" | "sm";
   className?: string;
   children?: ReactNode;
 };
 
-const sizes = { mega: "text-mega", huge: "text-huge", big: "text-big" };
+const sizes = { mega: "text-mega", huge: "text-huge", big: "text-big", sm: "text-[clamp(2rem,3.4vw,3.25rem)]" };
 
 export function SectionHeading({ eyebrow, title, id, size = "huge", className = "", children }: Props) {
   const lines = title.split("\n");

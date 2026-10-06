@@ -72,14 +72,33 @@ export const artistJobs = [
   "look after fans",
 ];
 
-export const idealArtist = [
-  "release music consistently",
-  "are serious about building a career",
-  "are prepared to create content",
-  "already invest in their music",
-  "perform live or are actively developing their audience",
-  "are willing to experiment",
-  "want to build real fans rather than buy meaningless numbers",
+/** "SHOWGUY works best when…" split section. Respectful, not exclusive. */
+export const goodFit = [
+  "you're actively releasing music",
+  "you're serious about building a career",
+  "you're willing to capture raw content",
+  "you're prepared to experiment",
+  "you already invest time or money into your artist project",
+  "you want to build genuine fans rather than vanity numbers",
+];
+
+export const notYet = [
+  "music is purely a casual hobby",
+  "you expect guaranteed viral results",
+  "you want fake streams or followers",
+  "you do not want to create any content",
+  "you want someone else to build the entire artist career without your involvement",
+];
+
+/** The monthly cycle. `who` says whether the artist or SHOWGUY does the step. */
+export const monthlyFlow: { step: string; who: "You" | "SHOWGUY" }[] = [
+  { step: "Plan", who: "SHOWGUY" },
+  { step: "Create", who: "You" },
+  { step: "Edit", who: "SHOWGUY" },
+  { step: "Publish", who: "SHOWGUY" },
+  { step: "Outreach", who: "SHOWGUY" },
+  { step: "Analyse", who: "SHOWGUY" },
+  { step: "Improve", who: "SHOWGUY" },
 ];
 
 /** Brand vision teaser. These are ambitions, not current products. */

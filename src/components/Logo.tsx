@@ -5,7 +5,7 @@ import { brand } from "@/config/brand";
 /** The SHOWGUY logo as a link home. `tone="dark"` is for dark backgrounds. */
 export function Logo({ tone = "dark", className = "" }: { tone?: "light" | "dark"; className?: string }) {
   return (
-    <Link href="/" aria-label="SHOWGUY home" className={`block shrink-0 ${className}`}>
+    <Link href="/" aria-label="SHOWGUY home" className={`flex min-h-11 shrink-0 items-center ${className}`}>
       <Image
         src={tone === "dark" ? brand.logo.onDark : brand.logo.onLight}
         alt={brand.logo.alt}

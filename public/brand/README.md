@@ -9,6 +9,7 @@ Replace each placeholder with the real file, **keeping the same file name**. The
 | `mascot.png` | Main mascot (hero, About) | PNG with transparent background, 800 × 1000 |
 | `mascot-wave.png` | Waving / pointing mascot (CTA, problem section, apply page) | PNG, transparent, 800 × 1000 |
 | `favicon.svg` | Browser tab icon | SVG, square |
+| `founder.jpg` | Founder portrait for the homepage About section (a tidy placeholder shows until it exists) | JPG, portrait ~4:5, e.g. 1200 × 1500 |
 | `social-card.jpg` | Picture shown when the site is shared on social media | JPG, 1200 × 630 |
 
 Convert any text in your logo to outlines before exporting, so it can never be clipped or change font on someone else's device.

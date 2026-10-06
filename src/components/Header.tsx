@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { mainNav, primaryCta } from "@/config/navigation";
+import { primaryCta } from "@/config/navigation";
+import { getMainNav } from "@/lib/nav";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
 
 export function Header() {
+  const mainNav = getMainNav();
   return (
     <header className="sticky top-0 z-50 border-b border-paper/10 bg-ink/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
@@ -25,7 +27,7 @@ export function Header() {
             {primaryCta.label}
           </Link>
         </nav>
-        <MobileNav />
+        <MobileNav items={mainNav} />
       </div>
     </header>
   );

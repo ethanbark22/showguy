@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { mainNav, primaryCta } from "@/config/navigation";
+import { primaryCta, type NavItem } from "@/config/navigation";
 
 /** Menu button + full-screen panel for phones and tablets. */
-export function MobileNav() {
+export function MobileNav({ items }: { items: NavItem[] }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export function MobileNav() {
         >
           <nav aria-label="Mobile">
             <ul className="space-y-1">
-              {[...mainNav, primaryCta].map((item) => (
+              {[...items, primaryCta].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

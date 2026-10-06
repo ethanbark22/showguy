@@ -25,7 +25,7 @@ export function Results() {
             <div className="relative">
               <SectionHeading id="results-title" eyebrow="Results" size="huge" title={"The first SHOWGUY campaigns are being built right now."} className="max-w-4xl" />
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-paper/85 sm:text-xl">
-                Our founding roster receives our introductory rate and direct founder involvement. As campaigns generate meaningful results, this is where we&rsquo;ll show exactly what worked, with the artist&rsquo;s permission.
+                The founding roster is where they start. As campaigns generate meaningful results, this is where we&rsquo;ll show exactly what worked, with the artist&rsquo;s permission.
               </p>
               <ButtonLink href="/apply" className="mt-8">
                 Be one of the first

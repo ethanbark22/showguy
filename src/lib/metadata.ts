@@ -4,6 +4,13 @@ import { brand } from "@/config/brand";
 
 type Options = {
   title?: string;
+  /** Use this exact title instead of "<title> | SHOWGUY". */
+  fullTitle?: string;
+  /** "article" for journal posts. */
+  type?: "website" | "article";
+  publishedTime?: string;
+  authors?: string[];
+  image?: string;
   description?: string;
   /** Path starting with "/", used for the canonical link. */
   path: string;
@@ -13,30 +20,36 @@ type Options = {
 /** Builds titles, canonical link, Open Graph and Twitter tags for a page. */
 export function pageMetadata({
   title,
+  fullTitle: exactTitle,
+  type = "website",
+  publishedTime,
+  authors,
+  image,
   description = site.description,
   path,
   noindex,
 }: Options): Metadata {
-  const fullTitle = title ? `${title} | ${site.name}` : site.title;
+  const fullTitle = exactTitle ?? (title ? `${title} | ${site.name}` : site.title);
   return {
-    title: title ? { absolute: fullTitle } : { absolute: site.title },
+    title: { absolute: fullTitle },
     description,
     alternates: { canonical: path },
     robots: noindex ? { index: false, follow: false } : undefined,
     openGraph: {
-      type: "website",
+      type,
+      ...(type === "article" ? { publishedTime, authors } : {}),
       locale: site.locale,
       siteName: site.name,
       title: fullTitle,
       description,
       url: path,
-      images: [{ url: brand.socialCard, width: 1200, height: 630, alt: site.name }],
+      images: [{ url: image ?? brand.socialCard, ...(image ? {} : { width: 1200, height: 630 }), alt: site.name }],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [brand.socialCard],
+      images: [image ?? brand.socialCard],
     },
   };
 }

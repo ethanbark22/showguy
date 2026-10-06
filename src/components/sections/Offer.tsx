@@ -10,7 +10,7 @@ export function Offer() {
           <div className="reveal min-w-0 lg:col-span-7">
             <SectionHeading id="offer-title" eyebrow="Founding artist offer" size="huge" title={"Join the founding SHOWGUY roster."} />
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-paper/90 sm:text-xl">
-              SHOWGUY is selecting a small number of artists for its founding client roster. Founding artists get direct founder involvement, our introductory rate and the chance to help shape how SHOWGUY works with artists from day one.
+              SHOWGUY is selecting a small number of artists for its founding client roster. Founding artists get direct founder involvement and the chance to help shape how SHOWGUY works with artists from day one.
             </p>
           </div>
           <div className="reveal min-w-0 lg:col-span-5 lg:text-right">

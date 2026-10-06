@@ -14,10 +14,6 @@ export function HowItWorks() {
             <ProcessStep key={step.title} number={String(i + 1).padStart(2, "0")} title={step.title} body={step.body} />
           ))}
         </ol>
-        <p className="mt-14 flex items-center gap-3 text-base font-medium text-lav sm:text-lg">
-          <Star className="size-5 shrink-0" />
-          Artists bring the raw footage. SHOWGUY turns it into campaigns.
-        </p>
       </div>
     </section>
   );

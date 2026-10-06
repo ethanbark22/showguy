@@ -43,3 +43,33 @@ export const socialLinks: SocialLink[] = [
 
 /** Only the socials that have a link filled in. */
 export const activeSocials = () => socialLinks.filter((s) => s.href);
+
+/**
+ * Company details for the footer. The footer only shows this block once
+ * `number` is filled in, so nothing half-finished ever appears on the live site.
+ */
+export const company = {
+  name: "SHOWGUY LTD",
+  /** The Companies House number. Leave "" until you have it. */
+  number: "",
+  registeredIn: "England & Wales",
+} as const;
+
+/** Footer lines for the company, or an empty list if no company number is set yet. */
+export function companyLines(): string[] {
+  if (!company.number) return [];
+  return [company.name, `Company No. ${company.number}`, `Registered in ${company.registeredIn}`];
+}
+
+/**
+ * The founder section. Put the photo at public/brand/founder.jpg (portrait,
+ * about 4:5 works best). Until it exists, a tidy placeholder shows instead.
+ */
+export const founder = {
+  name: "Ethan",
+  role: "Founder, SHOWGUY",
+  photo: "/brand/founder.jpg",
+  alt: "Ethan, founder of SHOWGUY",
+  /** Keeps faces in frame when the photo is cropped. "50% 20%" = centred, a little above the middle. */
+  objectPosition: "50% 20%",
+} as const;

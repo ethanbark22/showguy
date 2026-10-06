@@ -25,6 +25,9 @@ export function CTA() {
           <ButtonLink href="/apply" className="mt-8">
             Work with SHOWGUY
           </ButtonLink>
+          <p className="mt-4 max-w-md text-sm text-mute-text">
+            Applications are reviewed based on the artist and project, not follower count alone.
+          </p>
         </div>
         {/* He stands on the bottom edge of the section, beside the button */}
         <div className="relative mx-auto w-60 sm:w-80 lg:col-span-4 lg:w-full lg:max-w-md">

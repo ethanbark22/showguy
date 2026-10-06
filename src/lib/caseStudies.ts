@@ -9,7 +9,8 @@ import {
  * production no matter what, so fake numbers can never reach the live site.
  */
 export function getCaseStudies(): CaseStudy[] {
-  const real = caseStudies.filter((c) => !c.isSample);
+  // A real case study only appears with the artist's permission flag set
+  const real = caseStudies.filter((c) => !c.isSample && c.artistPermission === true);
   const showSamples =
     process.env.NODE_ENV !== "production" &&
     process.env.NEXT_PUBLIC_SHOW_SAMPLE_CASE_STUDIES === "true";

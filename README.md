@@ -37,6 +37,9 @@ npm run build
 | Hero text, section headlines, "Why SHOWGUY?" | `src/components/Hero.tsx` and `src/components/sections/*.tsx` (each section is one file; the words are in plain sight) |
 | The six services, the four steps, the "who we're looking for" list, the vision words | `src/config/services.ts` |
 | Menu links | `src/config/navigation.ts` |
+| FAQ questions and answers | `src/config/faq.ts` |
+| "Good fit / probably not yet" lists and the monthly workflow steps | `src/config/services.ts` |
+| The founding-rate explanation, price and "what's included" list | `src/config/pricing.ts` |
 | Site name, page description (Google result text) | `src/config/site.ts` |
 
 Tip: ask Claude Code, "change the hero text to …", and it will find the right file.
@@ -127,9 +130,30 @@ There is also fake sample data in the same file, stamped "Sample · not real". I
 
 ---
 
+## Founder photo, company details and socials
+
+- **Founder photo:** save a portrait (about 4:5, e.g. 1200 × 1500) as `public/brand/founder.jpg`. Until it exists a tidy placeholder shows. Name, role and the focal point of the crop are in `src/config/site.ts` (`founder`).
+- **Company details:** in `src/config/site.ts` set `company.number`. The footer's "SHOWGUY LTD · Company No. … · Registered in England & Wales" line appears only once a number is set, so nothing half-finished shows.
+- **Socials and email:** same file. Empty values are simply hidden everywhere (footer, contact page, thank-you page).
+
+## The Journal (articles)
+
+Articles are plain text files in `content/journal/`, one per article, written in simple Markdown (headings with `##`, lists with `-`, **bold**, links). No CMS, no database.
+
+1. Copy one of the existing files and rename it (the file name becomes the web address, e.g. `my-article.md` is `/journal/my-article`).
+2. Change the header at the top (title, description, date, author, category) and write the article.
+3. Remove the line `draft: true` to publish it.
+
+The three starter files are **drafts** (outlines only): drafts never appear on the live site, and `/journal` shows "The first pieces are on the way" and stays hidden from Google until a real article is published. When the first one goes live, a Journal link appears in the menu and the sitemap by itself. To preview drafts on your own computer only, run with `SHOW_DRAFT_JOURNAL=true npm run dev`.
+
+## Analytics events
+
+The site records a few simple events (no personal details, ever): `application_started`, `application_submitted`, `work_with_us_clicked`, `faq_opened`, `journal_article_viewed`. They go to Vercel Analytics, and to Google/Meta/TikTok once those are switched on and a visitor has accepted cookies. See `src/lib/track.ts`.
+
 ## Before launch checklist
 
-- [ ] Final logo, mascot, favicon and social card in `public/brand/`
+- [ ] Final logo, mascot, favicon and social card in `public/brand/`, and the founder photo as `public/brand/founder.jpg`
+- [ ] Company number in `src/config/site.ts`
 - [ ] Email and social links in `src/config/site.ts`
 - [ ] Form destination set (section 8) and tested on the live site
 - [ ] Real Privacy Policy, Terms and Cookie Policy copy (pages in `src/app/privacy`, `terms`, `cookies`). Then remove `noindex: true` from each page and add them to `src/app/sitemap.ts`

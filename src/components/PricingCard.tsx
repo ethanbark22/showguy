@@ -1,4 +1,4 @@
-import { offer } from "@/config/pricing";
+import { foundingRate, offer } from "@/config/pricing";
 import { ButtonLink } from "./Button";
 import { Star } from "./Star";
 
@@ -17,7 +17,7 @@ export function OfferPrice() {
         <span aria-hidden="true" className="mt-[0.18em] pr-1 font-sans self-start text-[clamp(2.25rem,7vw,5.5rem)] font-extrabold text-lav">
           £
         </span>
-        <span aria-hidden="true" className="display text-[clamp(5rem,24vw,15rem)] leading-[0.8] text-paper">
+        <span aria-hidden="true" className="display text-[clamp(5rem,24vw,8rem)] leading-[0.8] lg:text-[clamp(6rem,10.5vw,9.5rem)] text-paper">
           {offer.price.replace("£", "")}
         </span>
         <span aria-hidden="true" className="pb-2 pl-3 text-xl font-bold text-lav sm:text-3xl">
@@ -31,23 +31,22 @@ export function OfferPrice() {
   );
 }
 
-/** The off-white panel: what's included, what's separate, and the way in. */
+/** The off-white panel: why the rate is what it is, what's separate, and the way in. */
 export function PricingCard() {
   return (
     <div className="on-light rounded-[2rem] border-2 border-ink bg-paper p-6 text-ink sm:p-10 lg:p-12">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <h3 className="text-sm font-bold uppercase tracking-[0.16em]">Includes approximately</h3>
-          <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-            {offer.includes.map((item) => (
-              <li key={item} className="flex gap-3 border-b border-ink/15 pb-3 text-base leading-snug">
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="mt-0.5 size-5 shrink-0 text-violet-strong" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 12.5l5 5L20 6.5" />
-                </svg>
-                {item}
-              </li>
+          <p className="inline-flex items-center gap-2 rounded-full bg-deep px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-lav">
+            <Star className="size-3" />
+            {foundingRate.label}
+          </p>
+          <div className="mt-5 max-w-xl space-y-3 text-lg leading-relaxed">
+            {foundingRate.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
             ))}
-          </ul>
+          </div>
+          <p className="mt-6 max-w-xl border-t border-ink/15 pt-5 text-base leading-relaxed text-ink-soft">{foundingRate.includesLine}</p>
         </div>
         <div className="flex flex-col justify-between gap-8 lg:col-span-5">
           <div className="rounded-2xl bg-plum p-5 text-sm leading-relaxed text-paper">

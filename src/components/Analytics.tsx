@@ -1,9 +1,10 @@
 "use client";
 
 import Script from "next/script";
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { analytics, needsConsent } from "@/config/analytics";
+import { events, track } from "@/lib/track";
 
 /**
  * Loads analytics. Vercel Analytics is cookieless. Google, Meta and TikTok
@@ -42,6 +43,18 @@ function write(v: Consent) {
 export function Analytics() {
   const consent = useSyncExternalStore(subscribe, read, () => "denied" as Consent);
   const { googleAnalyticsId: ga, metaPixelId: meta, tiktokPixelId: tt } = analytics;
+
+  // Counts clicks on any "work with us" / apply link, noting only WHERE on the page it was
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as Element | null)?.closest?.("a[href='/apply']");
+      if (!link) return;
+      const where = link.closest("header") ? "header" : link.closest("footer") ? "footer" : (link.closest("section")?.id || "page");
+      track(events.workWithUsClicked, { placement: where });
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   return (
     <>

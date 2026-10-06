@@ -26,7 +26,7 @@ export const site = {
   ).replace(/\/$/, ""),
 
   /** The general SHOWGUY email address. e.g. "hello@yourdomain.com" */
-  email: "",
+  email: "hello@showguy.co.uk",
 
   /** Optional: a booking link (Calendly, Cal.com…) shown after someone applies. */
   bookingUrl: "",
@@ -36,7 +36,7 @@ export type SocialLink = { label: string; href: string };
 
 /** Paste full profile links between the quotes, e.g. "https://www.instagram.com/yourname". */
 export const socialLinks: SocialLink[] = [
-  { label: "Instagram", href: "" },
+  { label: "Instagram", href: "https://www.instagram.com/showguyhq" },
   { label: "TikTok", href: "" },
   { label: "YouTube", href: "" },
 ];
@@ -51,7 +51,7 @@ export const activeSocials = () => socialLinks.filter((s) => s.href);
 export const company = {
   name: "SHOWGUY LTD",
   /** The Companies House number. Leave "" until you have it. */
-  number: "",
+  number: "16169255",
   registeredIn: "England & Wales",
 } as const;
 

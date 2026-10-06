@@ -4,8 +4,8 @@ Replace each placeholder with the real file, **keeping the same file name**. The
 
 | File | What it is | Suggested size |
 |---|---|---|
-| `logo.svg` | Logo coloured for **light** backgrounds (rarely needed: the site is mostly dark) | SVG, ~290 × 48 |
-| `logo-dark.svg` | Logo coloured for **dark** backgrounds (**used in the header and footer**) | SVG, same proportions |
+| `logo.svg` | Logo coloured for **light** backgrounds (rarely needed: the site is mostly dark). **Final logo installed.** | SVG |
+| `logo-dark.svg` | White logo for **dark** backgrounds (**used in the header and footer**). **Final logo installed.** | SVG |
 | `mascot.png` | Main mascot (hero, About) | PNG with transparent background, 800 × 1000 |
 | `mascot-wave.png` | Waving / pointing mascot (CTA, problem section, apply page) | PNG, transparent, 800 × 1000 |
 | `favicon.svg` | Browser tab icon | SVG, square |

@@ -11,8 +11,8 @@ export const brand = {
     onLight: "/brand/logo.svg",
     /** Light-coloured logo, for DARK backgrounds (used in the header and footer). */
     onDark: "/brand/logo-dark.svg",
-    width: 289, // if your final logo has a different shape, change width/height to match its proportions
-    height: 48,
+    width: 1380, // the logo's exact proportions (1380 × 234); update if you ever replace it with a different shape
+    height: 234,
     alt: "SHOWGUY",
   },
   mascot: {

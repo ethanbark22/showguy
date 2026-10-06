@@ -1,85 +1,210 @@
 "use client";
 
-import { useRef, useState, useTransition, useEffect } from "react";
-import type { Field, FieldGroup, FormState } from "@/lib/forms";
-import { Button } from "./Button";
 import Link from "next/link";
+import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
+import { validateField, type Field, type FieldGroup, type FormState } from "@/lib/forms";
+import { site } from "@/config/site";
+import { Button } from "./Button";
 
 type Props = {
   groups: FieldGroup[];
   action: (formData: FormData) => Promise<FormState>;
   submitLabel: string;
-  successTitle: string;
-  successBody: string;
-  successExtra?: React.ReactNode;
+  /** Shown instead of the form once it has been sent. */
+  success: ReactNode;
   /** Used to prefix element ids so two forms never clash. */
   idPrefix: string;
+  /** Optional rule that looks across several answers (e.g. "at least one link"). */
+  cross?: { fields: string[]; check: (values: Record<string, string>) => Record<string, string> };
+  /** Optional heading and text for the closing panel above the send button. */
+  closing?: { title: string; body: string };
+  /** Shows "Fields marked * are required." above the form. */
+  showRequiredNote?: boolean;
+  /** Extra content inside the closing panel (e.g. "what happens next" on phones). */
+  closingExtra?: ReactNode;
 };
 
-const inputStyles =
-  "w-full min-h-12 rounded-2xl border-2 border-paper/25 bg-plum px-4 py-3 text-base text-paper placeholder:text-mute-text focus:border-violet aria-[invalid=true]:border-danger";
+type Banner = { kind: "fields"; count: number } | { kind: "failed"; message: string } | null;
+
+const FAILED_BODY = "Your answers haven't been lost. Try again, or contact SHOWGUY directly if the problem continues.";
+
+/** One look for every input, select and textarea. */
+const fieldBase =
+  "block w-full min-h-[3.25rem] rounded-xl border-2 border-line-strong bg-field px-4 py-3 text-base text-paper outline-none placeholder:text-mute-text/80 transition-[border-color,box-shadow] duration-200 focus:border-violet focus:shadow-[0_0_0_4px_rgb(139_92_246/0.28)] aria-[invalid=true]:border-danger aria-[invalid=true]:focus:shadow-[0_0_0_4px_rgb(255_154_168/0.22)]";
 
 /** Renders a form from field definitions and sends it to a server action. */
-export function DynamicForm({ groups, action, submitLabel, successTitle, successBody, successExtra, idPrefix }: Props) {
-  const [state, setState] = useState<FormState>({ status: "idle" });
+export function DynamicForm({ groups, action, submitLabel, success, idPrefix, cross, closing, showRequiredNote, closingExtra }: Props) {
+  const allFields = groups.flatMap((g) => g.fields);
+  const byName = Object.fromEntries(allFields.map((f) => [f.name, f]));
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [banner, setBanner] = useState<Banner>(null);
+  const [done, setDone] = useState(false);
   const [pending, startTransition] = useTransition();
   const startedAt = useRef(0);
-  const errorRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+  const crossErrorKeys = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     startedAt.current = Date.now();
   }, []);
 
   useEffect(() => {
-    if (state.status === "error") errorRef.current?.focus();
-  }, [state]);
+    if (done) {
+      successRef.current?.scrollIntoView({ block: "start" });
+      successRef.current?.focus({ preventScroll: true });
+    }
+  }, [done]);
+
+  const readValues = () => {
+    const fd = new FormData(formRef.current!);
+    return Object.fromEntries(allFields.map((f) => [f.name, String(fd.get(f.name) ?? "")]));
+  };
+
+  /** Move the person to the first answer that needs fixing. */
+  const focusFirst = (errs: Record<string, string>) => {
+    const first = allFields.find((f) => errs[f.name]);
+    const el = first && (formRef.current?.elements.namedItem(first.name) as HTMLElement | null);
+    if (el) {
+      el.scrollIntoView({ block: "center" });
+      el.focus({ preventScroll: true });
+    }
+  };
+
+  const setFieldError = (name: string, message?: string) =>
+    setErrors((prev) => {
+      if (!message && !(name in prev)) return prev;
+      const next = { ...prev };
+      if (message) next[name] = message;
+      else delete next[name];
+      return next;
+    });
+
+  function onBlur(e: React.FocusEvent<HTMLFormElement>) {
+    const t = e.target as unknown as HTMLInputElement;
+    const f = byName[t.name];
+    if (f) setFieldError(f.name, validateField(f, t.value));
+  }
+
+  function onChange(e: React.ChangeEvent<HTMLFormElement>) {
+    const t = e.target as unknown as HTMLInputElement;
+    const f = byName[t.name];
+    if (!f) return;
+    // Once a problem is showing, re-check as they type so it clears straight away
+    if (errors[f.name] && !crossErrorKeys.current.has(f.name)) setFieldError(f.name, validateField(f, t.value));
+    if (cross && cross.fields.includes(f.name) && crossErrorKeys.current.size) {
+      const still = cross.check(readValues());
+      crossErrorKeys.current.forEach((k) => {
+        if (!still[k]) {
+          setFieldError(k, undefined);
+          crossErrorKeys.current.delete(k);
+        }
+      });
+    }
+  }
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const values = readValues();
+
+    // 1. Check everything in the browser first, so mistakes show up instantly
+    const found: Record<string, string> = {};
+    for (const f of allFields) {
+      const msg = validateField(f, values[f.name]);
+      if (msg) found[f.name] = msg;
+    }
+    const crossFound = cross?.check(values) ?? {};
+    crossErrorKeys.current = new Set(Object.keys(crossFound));
+    for (const [k, v] of Object.entries(crossFound)) if (!found[k]) found[k] = v;
+    if (Object.keys(found).length) {
+      setErrors(found);
+      setBanner({ kind: "fields", count: Object.keys(found).length });
+      focusFirst(found);
+      return;
+    }
+
+    // 2. Send. The server checks everything again.
+    const formData = new FormData(formRef.current!);
     formData.set("_t", String(startedAt.current));
+    setBanner(null);
     startTransition(async () => {
       try {
-        setState(await action(formData));
+        const result = await action(formData);
+        if (result.status === "success") {
+          setDone(true);
+        } else if (result.status === "error") {
+          const fieldErrors = result.fieldErrors ?? {};
+          setErrors(fieldErrors);
+          if (Object.keys(fieldErrors).length) {
+            setBanner({ kind: "fields", count: Object.keys(fieldErrors).length });
+            focusFirst(fieldErrors);
+          } else {
+            setBanner({ kind: "failed", message: result.message });
+            requestAnimationFrame(() => bannerRef.current?.focus());
+          }
+        }
       } catch {
-        setState({ status: "error", message: "We couldn't reach the server. Check your connection and try again." });
+        setBanner({ kind: "failed", message: FAILED_BODY });
+        requestAnimationFrame(() => bannerRef.current?.focus());
       }
     });
   }
 
-  if (state.status === "success") {
+  if (done) {
     return (
-      <div role="status" className="rounded-[2rem] bg-lav p-8 text-ink sm:p-12">
-        <h2 className="display text-big">{successTitle}</h2>
-        <p className="mt-4 max-w-xl text-lg leading-relaxed">{successBody}</p>
-        {successExtra}
-        <Link href="/" className="mt-6 inline-block font-bold underline underline-offset-4">
-          Back to the homepage
-        </Link>
+      <div ref={successRef} tabIndex={-1} role="status" className="scroll-mt-24 outline-none">
+        {success}
       </div>
     );
   }
 
-  const fieldErrors = state.status === "error" ? (state.fieldErrors ?? {}) : {};
-
   return (
-    <form onSubmit={onSubmit} noValidate={false} className="space-y-10" aria-busy={pending}>
-      {state.status === "error" && (
-        <div ref={errorRef} tabIndex={-1} role="alert" className="rounded-2xl border-2 border-danger bg-danger/10 p-4 font-medium">
-          {state.message}
-        </div>
+    <form
+      ref={formRef}
+      onSubmit={onSubmit}
+      onBlur={onBlur}
+      onChange={onChange}
+      noValidate
+      aria-busy={pending}
+      className="rounded-[1.75rem] border border-line bg-surface p-5 sm:p-8 lg:p-10"
+    >
+      {showRequiredNote && (
+        <p className="mb-8 text-sm text-mute-text">
+          Fields marked <span className="font-bold text-lav">*</span> are required.
+        </p>
       )}
 
-      {groups.map((group) => (
-        <fieldset key={group.title} className="space-y-5">
-          {group.title && <legend className="display mb-2 text-3xl">{group.title}</legend>}
-          <div className="grid gap-5 sm:grid-cols-2">
-            {group.fields.map((f) => (
-              <FieldControl key={f.name} field={f} id={`${idPrefix}-${f.name}`} error={fieldErrors[f.name]} />
-            ))}
-          </div>
-        </fieldset>
-      ))}
+      <div className="space-y-10">
+        {groups.map((group, gi) => (
+          <section
+            key={group.title || gi}
+            id={group.number ? `${idPrefix}-section-${gi + 1}` : undefined}
+            aria-labelledby={group.title ? `${idPrefix}-heading-${gi + 1}` : undefined}
+            className={gi > 0 ? "border-t border-line pt-10" : ""}
+          >
+            {group.title && (
+              <header className="mb-6">
+                <h2 id={`${idPrefix}-heading-${gi + 1}`} className="display flex items-baseline gap-3 text-[clamp(1.6rem,3.4vw,2.3rem)]">
+                  {group.number && (
+                    <span aria-hidden="true" className="text-violet">
+                      {group.number}
+                    </span>
+                  )}
+                  {group.title}
+                </h2>
+                {group.intro && <p className="mt-2 text-[0.95rem] text-mute-text">{group.intro}</p>}
+              </header>
+            )}
+            <div className="-mb-5 grid gap-x-5 sm:grid-cols-2">
+              {group.fields.map((f) => (
+                <FieldControl key={f.name} field={f} id={`${idPrefix}-${f.name}`} error={errors[f.name]} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
 
       {/* Spam trap: invisible to people, tempting to bots. Leave it empty. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -89,80 +214,139 @@ export function DynamicForm({ groups, action, submitLabel, successTitle, success
         </label>
       </div>
 
-      <div>
-        <Button type="submit" disabled={pending} className="w-full sm:w-auto">
+      {/* The closing panel: the problem banner, a short note, and the send button */}
+      <div className="mt-12 rounded-3xl border border-violet/40 bg-plum p-6 sm:p-8">
+        {closing && (
+          <>
+            <h2 className="display text-[clamp(1.8rem,4vw,2.8rem)]">{closing.title}</h2>
+            <p className="mt-3 max-w-lg text-base text-paper/85">{closing.body}</p>
+          </>
+        )}
+
+        {banner && (
+          <div
+            ref={bannerRef}
+            tabIndex={-1}
+            role="alert"
+            className="mt-6 rounded-2xl border-2 border-danger bg-danger/10 p-4 outline-none"
+          >
+            {banner.kind === "fields" ? (
+              <p className="font-bold text-danger">
+                {banner.count === 1 ? "One answer needs another look." : `${banner.count} answers need another look.`}{" "}
+                <span className="font-medium text-paper/85">They&rsquo;re marked above.</span>
+              </p>
+            ) : (
+              <>
+                <p className="display text-2xl text-danger">We couldn&rsquo;t send that.</p>
+                <p className="mt-2 text-paper/90">{banner.message}</p>
+                <p className="mt-2 text-sm">
+                  <Link href="/contact" className="font-bold text-lav underline underline-offset-4">
+                    Contact SHOWGUY
+                  </Link>
+                  {site.email && (
+                    <>
+                      {" "}
+                      or email{" "}
+                      <a href={`mailto:${site.email}`} className="font-bold text-lav underline underline-offset-4">
+                        {site.email}
+                      </a>
+                    </>
+                  )}
+                </p>
+              </>
+            )}
+          </div>
+        )}
+
+        <Button type="submit" disabled={pending} className={`w-full sm:w-auto ${closing || banner ? "mt-6" : ""}`}>
           {pending ? "Sending…" : submitLabel}
         </Button>
-        <p className="mt-4 max-w-xl text-sm text-mute-text">
-          We&rsquo;ll only use your details to reply to you. See our{" "}
+        <p className="mt-4 max-w-md text-sm text-mute-text">
+          We only use your details to review your application and respond to you.{" "}
           <Link href="/privacy" className="font-bold text-lav underline underline-offset-2">
             Privacy Policy
           </Link>
-          .
         </p>
+        {closingExtra}
       </div>
     </form>
   );
 }
 
 function FieldControl({ field: f, id, error }: { field: Field; id: string; error?: string }) {
-  const wide = f.kind === "textarea";
+  const full = f.full || f.kind === "textarea";
   const hintId = f.hint ? `${id}-hint` : undefined;
   const errId = error ? `${id}-error` : undefined;
-  const describedBy = [hintId, errId].filter(Boolean).join(" ") || undefined;
   const common = {
     id,
     name: f.name,
     required: f.required,
+    "aria-required": f.required || undefined,
     "aria-invalid": error ? true : undefined,
-    "aria-describedby": describedBy,
+    "aria-describedby": [hintId, errId].filter(Boolean).join(" ") || undefined,
     autoComplete: f.autoComplete,
-    className: inputStyles,
   } as const;
 
   return (
-    <div className={wide ? "sm:col-span-2" : ""}>
-      <label htmlFor={id} className="mb-1.5 block font-bold">
+    <div className={`row-span-3 grid grid-rows-subgrid pb-5 ${full ? "sm:col-span-2" : ""}`}>
+      <div>
+      <label htmlFor={id} className="block text-[0.95rem] font-bold leading-snug">
         {f.label}
         {f.required && (
           <span aria-hidden="true" className="text-lav">
-            {" "}
-            *
+            {"\u00a0"}*
           </span>
         )}
       </label>
       {f.hint && (
-        <p id={hintId} className="mb-1.5 text-sm text-mute-text">
+        <p id={hintId} className="mt-1 text-[0.82rem] leading-snug text-mute-text">
           {f.hint}
         </p>
       )}
-      {f.kind === "textarea" ? (
-        <textarea {...common} rows={4} maxLength={f.max ?? 2000} placeholder={f.placeholder} />
-      ) : f.kind === "select" ? (
-        <select {...common} defaultValue="">
-          <option value="" disabled={f.required}>
-            {f.required ? "Choose one" : "—"}
-          </option>
-          {f.options?.map((o) => (
-            <option key={o} value={o}>
-              {o}
+      </div>
+      <div className="mt-2">
+        {f.kind === "textarea" ? (
+          <textarea
+            {...common}
+            rows={f.rows ?? 4}
+            maxLength={f.max ?? 2000}
+            placeholder={f.placeholder}
+            className={`${fieldBase} min-h-[6.5rem] resize-y leading-relaxed`}
+          />
+        ) : f.kind === "select" ? (
+          <select {...common} defaultValue="" className={`${fieldBase} field-select`}>
+            <option value="" disabled={f.required}>
+              {f.required ? "Choose one" : "—"}
             </option>
-          ))}
-        </select>
-      ) : (
-        <input
-          {...common}
-          // URL fields use type=text so "instagram.com/me" is accepted; we tidy it on the server.
-          type={f.kind === "url" ? "text" : f.kind}
-          inputMode={f.kind === "url" ? "url" : undefined}
-          maxLength={f.max ?? 200}
-          placeholder={f.placeholder}
-        />
-      )}
-      {error && (
-        <p id={errId} className="mt-1.5 text-sm font-bold text-danger">
+            {f.options?.map((o) => (
+              <option key={o} value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input
+            {...common}
+            type={f.kind}
+            inputMode={f.kind === "url" ? "url" : undefined}
+            autoCapitalize={f.kind === "url" || f.kind === "email" ? "none" : undefined}
+            spellCheck={f.kind === "url" || f.kind === "email" ? false : undefined}
+            maxLength={f.max ?? 200}
+            placeholder={f.placeholder}
+            className={fieldBase}
+          />
+        )}
+      </div>
+      {error ? (
+        <p id={errId} className="mt-1.5 flex items-start gap-1.5 text-sm font-semibold leading-snug text-danger">
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="mt-0.5 size-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v6M12 16.5v.5" />
+          </svg>
           {error}
         </p>
+      ) : (
+        <span aria-hidden="true" />
       )}
     </div>
   );

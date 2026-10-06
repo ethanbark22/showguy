@@ -14,6 +14,10 @@
   --color-ink-soft: #5a5468; /* small secondary copy on off-white backgrounds */
   --color-star: #ffd43b; /* the SHOWGUY star yellow. Use VERY sparingly */
   --color-danger: #ff9aa8; /* form errors on dark backgrounds */
+  --color-surface: #15111d; /* form panel */
+  --color-field: #1d1727; /* input, select and textarea fill */
+  --color-line: #3a3347; /* quiet dividers and panel borders */
+  --color-line-strong: #6b6482; /* input borders (strong enough to see clearly) */
   --font-display: var(--nf-display), "Arial Black", "Helvetica Neue", Arial, sans-serif;
   --font-sans: var(--nf-body), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -248,4 +252,34 @@ body::after {
     linear-gradient(to right, rgb(244 240 232 / 0.06) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(244 240 232 / 0.06) 1px, transparent 1px);
   background-size: 64px 64px;
+}
+
+/* ---------- Forms ---------- */
+/* Selects match the text inputs: no native look, our own arrow */
+.field-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 3rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4b5fd' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.1rem;
+}
+.field-select:required:invalid {
+  color: var(--color-mute-text);
+}
+.field-select option {
+  background: var(--color-field);
+  color: var(--color-paper);
+}
+/* Keep browser autofill readable on the dark theme */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-paper);
+  caret-color: var(--color-paper);
+  box-shadow: 0 0 0 100px var(--color-field) inset;
+  transition: background-color 9999s ease-out;
 }

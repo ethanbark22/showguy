@@ -15,7 +15,7 @@ import { tooManyRequests } from "@/lib/rateLimit";
 
 const GENERIC_ERROR: FormState = {
   status: "error",
-  message: "Something went wrong on our side and your message didn't send. Please try again in a minute.",
+  message: "Your answers haven't been lost. Try again, or contact SHOWGUY directly if the problem continues.",
 };
 
 /** Runs the shared spam checks, validation and delivery for either form. */

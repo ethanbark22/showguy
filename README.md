@@ -71,6 +71,8 @@ Different mascot proportions? Update `width` and `height` in `src/config/brand.t
 ## 7. How the application form works
 
 - Questions are defined once in `src/lib/forms.ts`. Add, remove or reword a question there, and both the page and the checks update.
+- The same file controls how the page is laid out: each section's number, title and one-line intro; which questions sit side by side (`full: true` gives a question the whole row); and the helper text under each label. Social links accept a full URL or just a handle (`@artistname`), and are tidied into full links before they reach you.
+- The form is checked in the browser as people fill it in (so mistakes show straight away) and again on the server. The left-hand column stays in view on a desktop while the form scrolls. Its text lives in `src/components/ApplySidebar.tsx`.
 - When someone presses **Send application**, the answers go to a server function (`src/app/actions.ts`) which checks them again (never trusting the browser), then passes them on (`src/lib/deliver.ts`).
 - Spam protection: a hidden trap field real people never fill in, a minimum time on the page, a limit of 5 sends per 10 minutes per visitor, and length limits. This stops most basic bots. If spam still gets through, add Cloudflare Turnstile (free) or Vercel BotID later.
 - **Running locally with nothing configured:** the form works and prints the answers in your terminal, so you can test.

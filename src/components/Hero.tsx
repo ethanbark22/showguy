@@ -55,7 +55,7 @@ export function Hero() {
             <br />
             artists
           </div>
-          <Mascot float eager className="relative z-[5] mx-auto w-[96%]" sizes="(min-width: 1024px) 400px, 80vw" />
+          <Mascot variant="mic" float eager className="relative z-[5] mx-auto w-[60%]" sizes="(min-width: 1024px) 260px, 60vw" />
         </div>
       </div>
 

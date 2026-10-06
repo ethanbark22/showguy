@@ -51,7 +51,7 @@ export function ApplySidebar() {
       {/* Phones: a small mascot beside the intro, then straight into the form */}
       <div className="relative ml-auto -mt-2 w-20 lg:hidden">
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 aspect-square rounded-full bg-violet" />
-        <Mascot variant="wave" className="relative" sizes="80px" />
+        <Mascot variant="reach" className="relative" sizes="80px" />
       </div>
 
       {/* Desktop: what happens next, progress and the mascot, all in view at once */}
@@ -63,7 +63,7 @@ export function ApplySidebar() {
           <FormProgress sections={sections} variant="rail" />
           <div className="relative w-24 shrink-0 [@media(max-height:860px)]:hidden">
             <div aria-hidden="true" className="absolute inset-x-0 bottom-0 aspect-square rounded-full bg-violet" />
-            <Mascot variant="wave" className="relative" sizes="96px" />
+            <Mascot variant="reach" className="relative" sizes="96px" />
           </div>
         </div>
       </div>

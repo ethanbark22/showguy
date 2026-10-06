@@ -2,7 +2,7 @@ import Image from "next/image";
 import { brand } from "@/config/brand";
 
 type Props = {
-  variant?: "default" | "wave";
+  variant?: "mic" | "wave" | "reach" | "point";
   className?: string;
   /** Gentle floating motion (switched off for reduced-motion users). */
   float?: boolean;
@@ -13,21 +13,22 @@ type Props = {
   decorative?: boolean;
 };
 
-/** The SHOWGUY mascot. Swap the files in /public/brand to change him everywhere. */
+/** The SHOWGUY mascot. Pick a pose with `variant`; swap the files in /public/brand to change him everywhere. */
 export function Mascot({
-  variant = "default",
+  variant = "mic",
   className = "",
   float = false,
   eager = false,
   sizes = "(min-width: 1024px) 520px, 70vw",
   decorative = true,
 }: Props) {
+  const pose = brand.mascot[variant];
   return (
     <Image
-      src={variant === "wave" ? brand.mascot.wave : brand.mascot.default}
+      src={pose.src}
       alt={decorative ? "" : brand.mascot.alt}
-      width={brand.mascot.width}
-      height={brand.mascot.height}
+      width={pose.width}
+      height={pose.height}
       sizes={sizes}
       loading={eager ? "eager" : "lazy"}
       fetchPriority={eager ? "high" : "auto"}

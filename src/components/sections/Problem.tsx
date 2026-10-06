@@ -44,7 +44,7 @@ export function Problem() {
           <div className="relative mx-auto -mb-20 w-44 sm:w-56 lg:col-span-4 lg:ml-auto lg:-mb-28 lg:w-64">
             <div aria-hidden="true" className="absolute inset-x-0 bottom-0 aspect-square rounded-full bg-violet" />
             <Star className="absolute -right-2 top-2 size-6" />
-            <Mascot variant="wave" className="relative" sizes="256px" />
+            <Mascot variant="reach" className="relative" sizes="256px" />
           </div>
         </div>
       </div>

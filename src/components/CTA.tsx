@@ -32,7 +32,7 @@ export function CTA() {
         {/* He stands on the bottom edge of the section, beside the button */}
         <div className="relative mx-auto w-60 sm:w-80 lg:col-span-4 lg:w-full lg:max-w-md">
           <div aria-hidden="true" className="absolute inset-x-[8%] bottom-0 aspect-square rounded-full bg-violet" />
-          <Mascot variant="wave" float className="relative" sizes="(min-width: 1024px) 448px, 320px" />
+          <Mascot variant="point" float className="relative" sizes="(min-width: 1024px) 448px, 320px" />
         </div>
       </div>
     </section>

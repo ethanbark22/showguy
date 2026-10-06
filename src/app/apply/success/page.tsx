@@ -60,9 +60,9 @@ export default function ApplySuccessPage() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-64 sm:w-80 lg:col-span-5 lg:w-full lg:max-w-md">
+        <div className="relative mx-auto w-52 sm:w-60 lg:col-span-5 lg:w-72">
           <div aria-hidden="true" className="absolute inset-x-[6%] bottom-0 aspect-square rounded-full bg-violet" />
-          <Mascot variant="wave" float eager className="relative" sizes="(min-width: 1024px) 448px, 320px" />
+          <Mascot variant="wave" float eager className="relative" sizes="(min-width: 1024px) 288px, 240px" />
         </div>
       </div>
     </div>

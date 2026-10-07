@@ -3,18 +3,10 @@ import { SectionHeading } from "../SectionHeading";
 import { ButtonLink } from "../Button";
 import { Star } from "../Star";
 
-/* card colours, number colour, tick colour, grid width on desktop */
-const tones = {
-  deep: { card: "bg-deep text-paper", num: "text-lav/20", tick: "text-lav", rule: "border-paper/20" },
-  lav: { card: "bg-lav text-ink", num: "text-deep/15", tick: "text-deep", rule: "border-ink/20" },
-  dark: { card: "bg-ink text-paper", num: "text-violet/20", tick: "text-violet", rule: "border-paper/20" },
-  paper: { card: "bg-[#fbf8f2] text-ink", num: "text-violet-strong/15", tick: "text-violet-strong", rule: "border-ink/20" },
-  violet: { card: "bg-violet text-ink", num: "text-ink/15", tick: "text-ink", rule: "border-ink/25" },
-} as const;
-
-/** Desktop widths on a 12-column grid: a wide pair on top, three across below. */
-const spans = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-4", "lg:col-span-4", "lg:col-span-4"];
-
+/**
+ * Capabilities as a magazine-style directory: big names, a line each, thin rules.
+ * No numbers (these aren't a sequence). The closing statement sits under the rows.
+ */
 export function Capabilities() {
   return (
     <section aria-labelledby="capabilities-title" className="on-light bg-paper text-ink">
@@ -32,66 +24,57 @@ export function Capabilities() {
           </p>
         </div>
 
-        <ol className="mt-10 grid gap-4 sm:gap-5 lg:grid-cols-12">
-          {capabilities.map((c, i) => {
-            const t = tones[c.tone];
-            return (
-              <li
-                key={c.area}
-                className={`reveal group relative overflow-hidden rounded-[1.75rem] border-2 border-ink p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#0d0d10] sm:p-8 max-sm:p-5 ${t.card} ${spans[i]} ${i % 2 ? "lg:mt-6" : ""}`}
-                style={{ animationRange: `entry ${i * 5}% entry ${35 + i * 5}%` }}
-              >
-                {/* Big faint number that drifts a little on hover */}
+        <ul className="mt-12 border-t-2 border-ink">
+          {capabilities.map((c, i) => (
+            <li
+              key={c.area}
+              className="reveal group relative border-b border-ink/30 transition-colors duration-300 hover:bg-lav/40"
+              style={{ animationRange: `entry ${i * 5}% entry ${35 + i * 5}%` }}
+            >
+              {/* A purple rule that draws itself along the bottom on hover */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 -bottom-px h-[3px] origin-left scale-x-0 bg-violet-strong transition-transform duration-500 ease-out group-hover:scale-x-100 motion-reduce:transition-none"
+              />
+              <div className="grid items-baseline gap-x-8 gap-y-2 py-6 sm:py-8 lg:grid-cols-12 lg:px-2">
+                <h3 className="display text-[clamp(1.9rem,6vw,3.4rem)] leading-[0.95] transition-all duration-300 group-hover:text-violet-strong motion-safe:group-hover:translate-x-2 lg:col-span-6 lg:text-[clamp(2.6rem,3.7vw,3.6rem)] xl:text-[3.6rem]">
+                  {c.area}
+                </h3>
+                <div className="transition-transform duration-300 motion-safe:group-hover:translate-x-1 lg:col-span-5">
+                  <p className="text-lg font-bold leading-snug sm:text-xl">{c.line}</p>
+                  <p className="mt-1.5 text-[0.98rem] leading-snug text-ink-soft sm:text-base">{c.items.join(" · ")}</p>
+                </div>
                 <span
                   aria-hidden="true"
-                  className={`display pointer-events-none absolute -right-2 -top-4 text-[8rem] leading-none transition-transform duration-500 motion-safe:group-hover:-translate-x-2 motion-safe:group-hover:translate-y-1 sm:text-[9rem] ${t.num}`}
+                  className="hidden justify-self-end text-4xl font-bold text-violet-strong transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 lg:col-span-1 lg:block"
                 >
-                  {c.number}
+                  ↗
                 </span>
-                <div className="relative">
-                  <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em]">
-                    <Star className="size-3.5" fill="currentColor" />
-                    <span>
-                      <span className="sr-only">Capability </span>
-                      {c.number}
-                    </span>
-                  </p>
-                  <h3 className="display mt-4 text-[clamp(1.3rem,6.2vw,1.9rem)] sm:text-[clamp(1.6rem,2.3vw,2.2rem)]">{c.area}</h3>
-                  <p className="mt-2 max-w-xs text-base font-medium leading-snug opacity-90 sm:text-lg">{c.line}</p>
-                  <ul className={`mt-5 grid gap-x-6 border-t pt-3 ${i < 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-1"} ${t.rule}`}>
-                    {c.items.map((item) => (
-                      <li key={item} className={`flex items-center gap-2.5 border-b py-2 text-[0.95rem] leading-snug ${t.rule}`}>
-                        <span aria-hidden="true" className={`size-1.5 shrink-0 rotate-45 bg-current ${t.tick}`} />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            );
-          })}
+              </div>
+            </li>
+          ))}
+        </ul>
 
-          {/* Sixth block: how we work (not a capability, so it has no number) */}
-          <li className="reveal relative overflow-hidden rounded-[1.75rem] border-2 border-ink border-t-[6px] border-t-violet bg-plum p-6 text-paper sm:p-8 lg:col-span-12">
-            <div className="grid gap-6 lg:grid-cols-12 lg:items-center">
-              <div className="lg:col-span-8">
-                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-lav">
-                  <Star className="size-3.5" />
-                  How we work
-                </p>
-                <p className="display mt-3 text-[clamp(1.6rem,3vw,2.4rem)]">Clear scope. Defined deliverables. No fake promises.</p>
-                <p className="mt-3 max-w-2xl text-base leading-relaxed text-paper/85 sm:text-lg">
-                  We focus on the work we can control, strategy, execution and quality, rather than guaranteeing streams, followers or viral results.
-                </p>
-              </div>
-              <div className="lg:col-span-4 lg:justify-self-end">
-                <ButtonLink href="/apply" variant="outline">
-                  Discuss a project
-                </ButtonLink>
-              </div>
+        {/* Closing statement */}
+        <div className="reveal mt-12 overflow-hidden rounded-[1.75rem] border-2 border-ink border-t-[6px] border-t-violet bg-plum p-6 text-paper sm:p-8">
+          <div className="grid gap-6 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-8">
+              <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-lav">
+                <Star className="size-3.5" />
+                How we work
+              </p>
+              <p className="display mt-3 text-[clamp(1.6rem,3vw,2.4rem)]">Clear scope. Defined deliverables. No fake promises.</p>
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-paper/85 sm:text-lg">
+                We focus on the work we can control, strategy, execution and quality, rather than guaranteeing streams, followers or viral results.
+              </p>
             </div>
-          </li>
-        </ol>
+            <div className="lg:col-span-4 lg:justify-self-end">
+              <ButtonLink href="/apply" variant="outline">
+                Discuss a project
+              </ButtonLink>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

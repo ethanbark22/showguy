@@ -11,7 +11,7 @@ export function Hero() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_40rem_at_85%_0%,rgb(139_92_246/0.22),transparent_70%)]" />
       <Star fill="var(--color-violet)" className="pointer-events-none absolute -left-32 top-1/3 hidden size-[34rem] opacity-[0.07] lg:block" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-10 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:pb-24 lg:pt-16">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-10 max-sm:gap-5 max-sm:pb-10 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:pb-24 lg:pt-16">
         <div className="lg:col-span-8">
           <p className="fade-up mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-lav sm:text-sm" style={{ "--d": "0s" } as React.CSSProperties}>
             <Star className="size-4 shrink-0" />
@@ -44,19 +44,19 @@ export function Hero() {
         </div>
 
         {/* The mascot stands on a purple stage and breaks out of the top of it */}
-        <div className="relative mx-auto mt-10 w-full max-w-sm sm:max-w-md lg:col-span-4 lg:mt-0 lg:max-w-none">
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 top-[26%] overflow-hidden rounded-[2.5rem] bg-violet">
+        <div className="relative mx-auto mt-10 w-full max-w-sm max-sm:-mb-3 max-sm:mt-2 sm:max-w-md lg:col-span-4 lg:mt-0 lg:max-w-none">
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 top-[26%] overflow-hidden max-sm:bottom-2 max-sm:top-[34%] rounded-[2.5rem] bg-violet">
             <Star fill="var(--color-lav)" className="absolute -right-16 -top-16 size-72 opacity-40" />
             <div className="grid-lines absolute inset-0 opacity-40 mix-blend-overlay" />
           </div>
-          <div aria-hidden="true" className="spin-slow absolute -left-3 top-[16%] z-10 grid size-24 place-items-center rounded-full bg-star text-center text-[0.62rem] font-bold uppercase leading-tight tracking-widest text-ink sm:size-28 lg:-left-6">
+          <div aria-hidden="true" className="spin-slow absolute -left-3 top-[16%] z-10 grid size-24 max-sm:left-[17%] max-sm:top-[24%] max-sm:size-[4.6rem] max-sm:text-[0.5rem] place-items-center rounded-full bg-star text-center text-[0.62rem] font-bold uppercase leading-tight tracking-widest text-ink sm:size-28 lg:-left-6">
             Digital
             <br />
             campaigns
             <br />
             for music
           </div>
-          <Mascot variant="mic" float eager className="relative z-[5] mx-auto w-[60%]" sizes="(min-width: 1024px) 260px, 60vw" />
+          <Mascot variant="mic" float eager className="relative z-[5] mx-auto w-[60%] max-sm:mr-[7%] max-sm:w-[46%]" sizes="(min-width: 1024px) 260px, 60vw" />
         </div>
       </div>
 

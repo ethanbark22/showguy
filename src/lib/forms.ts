@@ -6,7 +6,7 @@ import { budgetOptions } from "@/config/pricing";
  * validates them from the same list, so they can't drift apart.
  * To add or remove a question, edit the lists below.
  */
-export type FieldKind = "text" | "email" | "tel" | "url" | "textarea" | "select";
+export type FieldKind = "text" | "email" | "tel" | "url" | "textarea" | "select" | "checkboxes";
 
 export type Field = {
   name: string;
@@ -42,8 +42,20 @@ export type FieldGroup = {
   short?: string;
 };
 
-const yesNo = ["Yes", "No"];
+const roles = ["Independent artist", "Artist manager", "Record label", "Promoter", "Music business", "Other"];
+const needs = [
+  "Website or digital project",
+  "Campaign planning",
+  "Creative direction",
+  "Digital communications",
+  "Ongoing digital support",
+  "Not sure yet",
+];
 
+/**
+ * The enquiry form. It works for artists, managers, labels, promoters and
+ * other music businesses, so no streaming or social links are required.
+ */
 export const applicationGroups: FieldGroup[] = [
   {
     number: "01",
@@ -51,53 +63,53 @@ export const applicationGroups: FieldGroup[] = [
     short: "About",
     intro: "The basics, so we know who we're talking to.",
     fields: [
-      { name: "artistName", label: "Artist / band name", kind: "text", required: true, autoComplete: "organization" },
-      { name: "contactName", label: "Contact name", kind: "text", required: true, autoComplete: "name" },
+      { name: "name", label: "Name", kind: "text", required: true, autoComplete: "name" },
       { name: "email", label: "Email", kind: "email", required: true, autoComplete: "email" },
-      { name: "phone", label: "Phone / WhatsApp", kind: "tel", hint: "Optional", autoComplete: "tel" },
-      { name: "location", label: "Location", kind: "text", required: true, placeholder: "Town or city", autoComplete: "address-level2", full: true },
+      { name: "company", label: "Company / artist / project name", kind: "text", required: true, autoComplete: "organization" },
+      { name: "location", label: "Location", kind: "text", placeholder: "Town or city", autoComplete: "address-level2" },
+      { name: "phone", label: "Phone", kind: "tel", hint: "Optional", autoComplete: "tel" },
+      { name: "role", label: "Which best describes you?", kind: "select", required: true, options: roles },
     ],
   },
   {
     number: "02",
-    title: "Your music online",
-    short: "Music",
-    intro: "Add at least one link so we can hear you. A handle like @artistname is fine.",
+    title: "What you need",
+    short: "Needs",
+    intro: "Pick as many as you like. It's fine if you're not sure yet.",
     fields: [
-      { name: "instagram", label: "Instagram", kind: "url", placeholder: "@artistname", handleBase: "https://www.instagram.com/" },
-      { name: "tiktok", label: "TikTok", kind: "url", placeholder: "@artistname", handleBase: "https://www.tiktok.com/@" },
-      { name: "spotify", label: "Spotify", kind: "url", placeholder: "open.spotify.com/artist/…", example: "open.spotify.com/artist/…" },
-      { name: "youtube", label: "YouTube", kind: "url", placeholder: "@artistname", handleBase: "https://www.youtube.com/@" },
-      { name: "website", label: "Website", kind: "url", hint: "Optional", placeholder: "yourwebsite.com", autoComplete: "url" },
-      { name: "genre", label: "Genre", kind: "text", required: true, placeholder: "e.g. Alternative rock" },
-      { name: "monthlyListeners", label: "Spotify monthly listeners", kind: "text", hint: "Approximate is completely fine.", placeholder: "e.g. 1,500" },
-      { name: "largestFollowing", label: "Largest social following", kind: "text", hint: "Which platform, and roughly how many.", placeholder: "e.g. TikTok, 8,000" },
-      { name: "nextRelease", label: "Next release date", kind: "text", hint: "A rough date is fine, or say you're not sure yet.", placeholder: "e.g. 18/11/2026 or Not sure yet", full: true },
+      { name: "helpWith", label: "What do you need help with?", kind: "checkboxes", required: true, options: needs, full: true },
+      {
+        name: "engagement",
+        label: "Are you looking for?",
+        kind: "select",
+        required: true,
+        options: ["One-off project", "Ongoing partnership", "Both", "Not sure yet"],
+        full: true,
+      },
     ],
   },
   {
     number: "03",
-    title: "Where you are now",
-    short: "Now",
-    intro: "A quick picture of your set-up.",
+    title: "Your project",
+    short: "Project",
+    intro: "A few lines is plenty. We'll ask if we need more.",
     fields: [
-      { name: "description", label: "Tell us about the artist", kind: "textarea", required: true, rows: 4, hint: "Tell us who you are, what you sound like and what makes the project interesting." },
-      { name: "releaseFrequency", label: "How often do you release music?", kind: "select", required: true, options: ["Every month or so", "Every 2–3 months", "Every 4–6 months", "Once or twice a year", "Not yet released anything"] },
-      { name: "captureVideo", label: "Can you regularly capture raw video content?", kind: "select", required: true, options: ["Yes, regularly", "Sometimes", "Not yet, but I could"] },
-      { name: "management", label: "Do you currently have management?", kind: "select", required: true, options: yesNo },
-      { name: "label", label: "Do you currently work with a label?", kind: "select", required: true, options: yesNo },
-      { name: "budget", label: "Approximate monthly marketing budget", kind: "select", required: true, options: budgetOptions, hint: "Just helps us understand where you are. There's no wrong answer.", full: true },
+      { name: "project", label: "What's your project?", kind: "textarea", required: true, rows: 4, hint: "What are you working on, and what do you need from us?" },
+      { name: "outcome", label: "What would a successful outcome look like?", kind: "textarea", rows: 3, hint: "Optional" },
+      { name: "start", label: "When would you like to start?", kind: "select", required: true, options: ["Immediately", "Within 30 days", "Within 1–3 months", "Just exploring"] },
+      { name: "budget", label: "What's your approximate budget?", kind: "select", required: true, options: budgetOptions, hint: "Just helps us suggest the right approach." },
     ],
   },
   {
     number: "04",
-    title: "Where you want to go",
-    short: "Goals",
-    intro: "The part that helps us most. Take your time.",
+    title: "Links",
+    short: "Links",
+    intro: "Optional. Share whatever helps us understand your project.",
     fields: [
-      { name: "goals", label: "What are you trying to achieve over the next 6 months?", kind: "textarea", required: true, rows: 3, hint: "Releases, audience growth, live goals, fanbase, career milestones. Whatever matters most." },
-      { name: "biggestProblem", label: "What is currently your biggest marketing problem?", kind: "textarea", required: true, rows: 3, hint: "What feels hardest, inconsistent or most frustrating right now?" },
-      { name: "why", label: "Why do you want to work with SHOWGUY?", kind: "textarea", required: true, rows: 3, hint: "What caught your attention, and what would you want us to help with?" },
+      { name: "website", label: "Website", kind: "url", placeholder: "yourwebsite.com", autoComplete: "url" },
+      { name: "instagram", label: "Instagram", kind: "url", placeholder: "@yourname", handleBase: "https://www.instagram.com/" },
+      { name: "spotify", label: "Spotify", kind: "url", placeholder: "open.spotify.com/artist/…", example: "open.spotify.com/artist/…" },
+      { name: "otherLinks", label: "Other relevant links", kind: "text", placeholder: "A deck, a reference site, a Linktree…", max: 500 },
     ],
   },
 ];
@@ -141,6 +153,14 @@ function fieldSchema(f: Field): z.ZodType<string> {
   const tooLong = `Please keep this under ${max} characters.`;
   const missing = "This one is needed.";
 
+  if (f.kind === "checkboxes") {
+    const options = f.options ?? [];
+    const base = z
+      .string()
+      .trim()
+      .refine((v) => !v || v.split(", ").every((x) => options.includes(x)), "Please choose from the options.");
+    return f.required ? base.refine((v) => v !== "", "Please choose at least one.") : base;
+  }
   if (f.kind === "select") {
     const options = f.options ?? [];
     const base = z.string().trim().refine((v) => !v || options.includes(v), "Please choose one of the options.");
@@ -169,19 +189,7 @@ function buildSchema(fields: Field[]) {
 }
 
 export const applicationFields = applicationGroups.flatMap((g) => g.fields);
-const linkFields = ["instagram", "tiktok", "spotify", "youtube"];
-const LINK_RULE_MESSAGE = "Please add at least one link to your music or socials.";
-export const applicationSchema = buildSchema(applicationFields).refine(
-  (d) => linkFields.some((k) => (d as Record<string, string>)[k]),
-  { message: LINK_RULE_MESSAGE, path: ["spotify"] },
-);
-
-/** The same "at least one link" rule, for the browser to check before sending. */
-export const applicationCross = {
-  fields: linkFields,
-  check: (values: Record<string, string>): Record<string, string> =>
-    linkFields.some((k) => values[k]?.trim()) ? {} : { spotify: LINK_RULE_MESSAGE },
-};
+export const applicationSchema = buildSchema(applicationFields);
 
 const fieldSchemas = new Map<string, z.ZodType<string>>();
 
@@ -202,3 +210,10 @@ export type FormState =
   | { status: "idle" }
   | { status: "success" }
   | { status: "error"; message: string; fieldErrors?: Record<string, string> };
+
+/** Reads one answer from submitted form data. Tick-box groups are joined as "A, B". */
+export function readField(f: Field, formData: FormData): string {
+  return f.kind === "checkboxes"
+    ? formData.getAll(f.name).map(String).join(", ")
+    : String(formData.get(f.name) ?? "");
+}

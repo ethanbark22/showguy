@@ -5,10 +5,10 @@ import { Mascot } from "@/components/Mascot";
 import { Star } from "@/components/Star";
 import { WhatHappensNext } from "@/components/WhatHappensNext";
 
-/** People land here after sending an application. Not for search engines. */
+/** People land here after sending an enquiry. Not for search engines. */
 export const metadata = pageMetadata({
-  title: "Application received",
-  description: "Thanks for applying to work with SHOWGUY.",
+  title: "Enquiry received",
+  description: "Thanks for getting in touch with SHOWGUY.",
   path: "/apply/success",
   noindex: true,
 });
@@ -23,7 +23,7 @@ export default function ApplySuccessPage() {
         <div className="lg:col-span-7">
           <p className="mb-5 inline-flex items-center gap-2 rounded-full border-2 border-lav px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-lav">
             <Star className="size-3" />
-            Application received
+            Enquiry received
           </p>
           <h1 className="display text-hero">
             <span className="line" style={{ "--i": 0 } as React.CSSProperties}>
@@ -36,7 +36,7 @@ export default function ApplySuccessPage() {
             </span>
           </h1>
           <p className="fade-up mt-8 max-w-xl text-lg leading-relaxed text-paper/90 sm:text-xl" style={{ "--d": "0.5s" } as React.CSSProperties}>
-            We&rsquo;ll take a look at your project and the information you&rsquo;ve sent over. If it feels like SHOWGUY could be a good fit, we&rsquo;ll get in touch to arrange a conversation.
+            Thanks for getting in touch. We&rsquo;ll take a look at your project and the information you&rsquo;ve sent over, then get back to you to talk it through.
           </p>
           <div className="fade-up mt-8 flex flex-col gap-3 sm:flex-row" style={{ "--d": "0.65s" } as React.CSSProperties}>
             <ButtonLink href="/">Back to SHOWGUY</ButtonLink>
@@ -53,7 +53,7 @@ export default function ApplySuccessPage() {
           </div>
           <p className="mt-6 flex max-w-md items-start gap-2 text-sm text-mute-text">
             <Star className="mt-0.5 size-4 shrink-0" />
-            No automated sales funnel. A real person reviews each application.
+            No automated sales funnel. A real person reads every enquiry.
           </p>
           <div className="mt-10 max-w-md rounded-2xl border border-line bg-surface p-5">
             <WhatHappensNext done={1} />

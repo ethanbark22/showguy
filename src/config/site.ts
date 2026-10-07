@@ -10,10 +10,10 @@ const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 
 export const site = {
   name: "SHOWGUY",
-  tagline: "Digital growth for independent artists",
-  title: "SHOWGUY — Digital Growth for Independent Artists",
+  tagline: "The creative and digital partner for music",
+  title: "SHOWGUY — Creative & Digital Services for Music",
   description:
-    "SHOWGUY is the digital team behind ambitious independent artists, helping with content, releases, audience growth and fan development.",
+    "SHOWGUY is a creative and digital partner for artists, managers, independent labels and music businesses. Websites, campaigns, creative projects and ongoing digital support.",
   locale: "en_GB",
 
   /**

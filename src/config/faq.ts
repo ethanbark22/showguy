@@ -13,75 +13,69 @@ export type FaqItem = {
 
 export const faqs: FaqItem[] = [
   {
-    id: "signed",
-    question: "Do I need to be signed?",
-    lead: "No.",
-    body: [
-      { type: "p", text: "SHOWGUY is built to work with ambitious independent artists, bands and developing projects." },
-      { type: "p", text: "If you are signed or already work with management, we can still potentially work alongside your existing team." },
-    ],
+    id: "who",
+    question: "Who does SHOWGUY work with?",
+    body: [{ type: "p", text: "Independent artists, artist managers, labels, promoters and music businesses." }],
   },
   {
-    id: "following",
-    question: "Do I need a big following?",
-    lead: "No.",
+    id: "unsigned",
+    question: "Do you work with unsigned artists?",
+    lead: "Yes.",
+    body: [{ type: "p", text: "We work with independent artists as well as established music teams." }],
+  },
+  {
+    id: "one-project",
+    question: "Can we hire SHOWGUY for one project?",
+    lead: "Yes.",
     body: [
-      { type: "p", text: "We care more about:" },
       {
-        type: "ul",
-        items: ["the quality of the artist project", "consistency", "ambition", "willingness to create", "whether there is something worth building"],
+        type: "p",
+        text: "We offer defined creative and digital projects such as websites, campaign pages and strategy work.",
       },
-      { type: "p", text: "A large existing audience helps, but it is not a requirement." },
     ],
   },
   {
-    id: "location",
-    question: "Do I need to live near SHOWGUY?",
-    lead: "No.",
+    id: "monthly",
+    question: "Do you offer monthly support?",
+    lead: "Yes.",
     body: [
-      { type: "p", text: "Most of the current SHOWGUY service is designed to work remotely." },
-      { type: "p", text: "Artists supply raw footage and materials, and SHOWGUY handles the strategy, editing, campaign planning and digital execution." },
-      { type: "p", text: "Physical production may be added separately where appropriate." },
-    ],
-  },
-  {
-    id: "filming",
-    question: "Do you film content?",
-    lead: "Not as part of the standard monthly package.",
-    body: [
-      { type: "p", text: "The current service is primarily designed around artist-supplied footage." },
-      { type: "p", text: "Professional filming, photography or production can be arranged separately where appropriate." },
+      {
+        type: "p",
+        text: "We can discuss an ongoing partnership built around an agreed monthly scope of work.",
+      },
     ],
   },
   {
     id: "guarantees",
-    question: "Do you guarantee streams, followers or playlists?",
+    question: "Do you guarantee streams or sales?",
     lead: "No.",
     body: [
-      { type: "p", text: "SHOWGUY does not sell guaranteed streams, fake engagement or guaranteed playlist placements." },
       {
         type: "p",
-        text: "The goal is to improve the quality and consistency of an artist's marketing and give their music a better chance of reaching and converting real audiences.",
+        text: "We focus on agreed deliverables, professional execution and clear communication rather than guaranteeing outcomes outside our control.",
       },
     ],
   },
   {
-    id: "after-three-months",
-    question: "What happens after the first 3 months?",
-    body: [
-      { type: "p", text: "The Founding Artist engagement begins with a three-month initial term." },
-      { type: "p", text: "After that, we review what worked, where the artist is going next and whether continuing together makes sense." },
-      { type: "p", text: "If both sides want to continue, the relationship can move onto an ongoing arrangement." },
-    ],
+    id: "remote",
+    question: "Do you work remotely?",
+    lead: "Yes.",
+    body: [{ type: "p", text: "Much of our digital work can be delivered remotely." }],
   },
   {
-    id: "managers-labels",
-    question: "Can managers or labels work with SHOWGUY?",
+    id: "websites",
+    question: "Do you build websites?",
     lead: "Yes.",
+    body: [{ type: "p", text: "We create websites and digital experiences tailored to artists and music businesses." }],
+  },
+  {
+    id: "cost",
+    question: "How much does it cost?",
     body: [
-      { type: "p", text: "SHOWGUY can work directly with:" },
-      { type: "ul", items: ["artists", "artist managers", "independent labels", "small artist teams"] },
-      { type: "p", text: "The exact working relationship can be adapted depending on who is coordinating the project." },
+      {
+        type: "p",
+        text: "Costs depend on the requirements, scope and complexity of the project. Get in touch and we'll discuss the most appropriate approach.",
+      },
     ],
   },
 ];

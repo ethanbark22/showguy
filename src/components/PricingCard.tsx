@@ -1,69 +1,65 @@
-import { foundingRate, offer } from "@/config/pricing";
+import { engagements } from "@/config/engagements";
 import { ButtonLink } from "./Button";
 import { Star } from "./Star";
 
 /**
- * The big price. The pound sign is set small and raised, like a currency
- * superscript, so the "400" stays clean and unmistakable.
+ * The two ways to work with SHOWGUY, as two distinct panels.
+ * No prices: scope and cost are agreed in conversation. Words live in src/config/engagements.ts.
  */
-export function OfferPrice() {
+export function EngagementOptions() {
+  const [project, partnership] = engagements;
   return (
-    <div>
-      <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-lav">
-        <Star className="size-3.5" />
-        {offer.name}
-      </p>
-      <p className="flex flex-wrap items-end leading-none" aria-label={`${offer.price} ${offer.period.replace("/", "per ")}`}>
-        <span aria-hidden="true" className="mt-[0.18em] pr-1 font-sans self-start text-[clamp(2.25rem,7vw,5.5rem)] font-extrabold text-lav">
-          £
-        </span>
-        <span aria-hidden="true" className="display text-[clamp(5rem,24vw,8rem)] leading-[0.8] lg:text-[clamp(6rem,10.5vw,9.5rem)] text-paper">
-          {offer.price.replace("£", "")}
-        </span>
-        <span aria-hidden="true" className="pb-2 pl-3 text-xl font-bold text-lav sm:text-3xl">
-          {offer.period}
-        </span>
-      </p>
-      <p className="mt-6 inline-block rounded-full border-2 border-lav px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-lav">
-        {offer.term}
-      </p>
+    <div className="grid gap-5 lg:grid-cols-2">
+      {/* Option A: a light panel */}
+      <article className="on-light reveal flex flex-col rounded-[2rem] border-2 border-ink bg-paper p-6 text-ink sm:p-10">
+        <p className="display text-6xl text-violet-strong">A</p>
+        <h3 className="display mt-3 text-[clamp(2rem,3.6vw,3rem)]">{project.label}</h3>
+        <p className="mt-3 text-lg leading-snug">{project.blurb}</p>
+        <ul className="mt-6 space-y-2 border-t border-ink/15 pt-5">
+          {project.examples.map((e) => (
+            <li key={e} className="flex gap-3 text-base">
+              <Tick className="text-violet-strong" />
+              {e}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6 rounded-2xl bg-plum p-4 text-base font-medium leading-snug text-paper">{project.copy}</p>
+        <div className="mt-auto pt-8">
+          <ButtonLink href={project.cta.href} className="w-full">
+            {project.cta.label}
+          </ButtonLink>
+        </div>
+      </article>
+
+      {/* Option B: a dark panel */}
+      <article className="reveal relative flex flex-col overflow-hidden rounded-[2rem] border-2 border-violet bg-ink p-6 text-paper sm:p-10">
+        <Star fill="var(--color-violet)" className="pointer-events-none absolute -right-14 -top-14 size-56 opacity-20" />
+        <p className="display relative text-6xl text-lav">B</p>
+        <h3 className="display relative mt-3 text-[clamp(2rem,3.6vw,3rem)]">{partnership.label}</h3>
+        <p className="relative mt-3 text-lg leading-snug text-paper/90">{partnership.blurb}</p>
+        <ul className="relative mt-6 space-y-2 border-t border-paper/20 pt-5">
+          {partnership.examples.map((e) => (
+            <li key={e} className="flex gap-3 text-base">
+              <Tick className="text-violet" />
+              {e}
+            </li>
+          ))}
+        </ul>
+        <p className="relative mt-6 rounded-2xl bg-violet-strong p-4 text-base font-medium leading-snug text-paper">{partnership.copy}</p>
+        <div className="relative mt-auto pt-8">
+          <ButtonLink href={partnership.cta.href} className="w-full">
+            {partnership.cta.label}
+          </ButtonLink>
+        </div>
+      </article>
     </div>
   );
 }
 
-/** The off-white panel: why the rate is what it is, what's separate, and the way in. */
-export function PricingCard() {
+function Tick({ className = "" }: { className?: string }) {
   return (
-    <div className="on-light rounded-[2rem] border-2 border-ink bg-paper p-6 text-ink sm:p-10 lg:p-12">
-      <div className="grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-7">
-          <p className="inline-flex items-center gap-2 rounded-full bg-deep px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-lav">
-            <Star className="size-3" />
-            {foundingRate.label}
-          </p>
-          <div className="mt-5 max-w-xl space-y-3 text-lg leading-relaxed">
-            {foundingRate.paragraphs.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
-          <p className="mt-6 max-w-xl border-t border-ink/15 pt-5 text-base leading-relaxed text-ink-soft">{foundingRate.includesLine}</p>
-        </div>
-        <div className="flex flex-col justify-between gap-8 lg:col-span-5">
-          <div className="rounded-2xl bg-plum p-5 text-sm leading-relaxed text-paper">
-            {offer.smallPrint.map((line) => (
-              <p key={line} className="font-medium">
-                {line}
-              </p>
-            ))}
-          </div>
-          <div>
-            <ButtonLink href={offer.cta.href} className="w-full">
-              {offer.cta.label}
-            </ButtonLink>
-            <p className="mt-4 text-sm text-ink-soft">{offer.note}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <svg aria-hidden="true" viewBox="0 0 24 24" className={`mt-1 size-4 shrink-0 ${className}`} fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 12.5l5 5L20 6.5" />
+    </svg>
   );
 }

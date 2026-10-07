@@ -1,5 +1,4 @@
 import { heroTags } from "@/config/services";
-import { offer } from "@/config/pricing";
 import { ButtonLink } from "./Button";
 import { Marquee } from "./Marquee";
 import { Mascot } from "./Mascot";
@@ -20,25 +19,28 @@ export function Hero() {
           </p>
           <h1 id="hero-title" className="display text-hero">
             <span className="line" style={{ "--i": 0 } as React.CSSProperties}>
-              <span>You make the music.</span>
+              <span>Good music.</span>
             </span>
             <span className="line" style={{ "--i": 1 } as React.CSSProperties}>
+              <span>Great ideas.</span>
+            </span>
+            <span className="line" style={{ "--i": 2 } as React.CSSProperties}>
               <span>
-                We make <em className="mark">people care.</em>
+                <em className="mark">Proper execution.</em>
               </span>
             </span>
           </h1>
           <p className="fade-up mt-8 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl" style={{ "--d": "0.6s" } as React.CSSProperties}>
-            SHOWGUY is the digital team behind ambitious independent artists. We turn releases, footage and ideas into content, campaigns and fan growth.
+            SHOWGUY is the creative and digital partner for independent artists, labels and music businesses. From websites and digital campaigns to ongoing creative support, we help bring music projects to life.
           </p>
           <div className="fade-up mt-8 flex flex-col gap-3 sm:flex-row" style={{ "--d": "0.75s" } as React.CSSProperties}>
             <ButtonLink href="/apply">Work with SHOWGUY</ButtonLink>
             <ButtonLink href="#what-we-do" variant="outline" arrow={false}>
-              See what we do
+              Explore our services
             </ButtonLink>
           </div>
           <p className="fade-up mt-6 max-w-xl text-sm font-medium text-mute-text sm:text-base" style={{ "--d": "0.9s" } as React.CSSProperties}>
-            Founding artist roster: <span className="text-paper">{offer.price}{offer.period}</span>, {offer.term}. By application.
+            For artists, managers, labels, promoters and music businesses.
           </p>
         </div>
 
@@ -49,11 +51,11 @@ export function Hero() {
             <div className="grid-lines absolute inset-0 opacity-40 mix-blend-overlay" />
           </div>
           <div aria-hidden="true" className="spin-slow absolute -left-3 top-[16%] z-10 grid size-24 place-items-center rounded-full bg-star text-center text-[0.62rem] font-bold uppercase leading-tight tracking-widest text-ink sm:size-28 lg:-left-6">
-            Digital
+            Creative
             <br />
-            team for
+            &amp; digital
             <br />
-            artists
+            for music
           </div>
           <Mascot variant="mic" float eager className="relative z-[5] mx-auto w-[60%]" sizes="(min-width: 1024px) 260px, 60vw" />
         </div>

@@ -11,7 +11,7 @@ export function Results() {
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
         {studies.length > 0 ? (
           <>
-            <SectionHeading id="results-title" eyebrow="Results" size="huge" title="Real artists. Real campaigns." className="reveal" />
+            <SectionHeading id="results-title" eyebrow="Our work" size="huge" title="Good work speaks for itself." className="reveal" />
             <div className="mt-12 grid gap-6">
               {studies.map((s) => (
                 <CaseStudyCard key={s.slug} study={s} />
@@ -23,12 +23,22 @@ export function Results() {
             <Star fill="var(--color-violet)" className="pointer-events-none absolute -right-28 -top-28 size-80 opacity-25" />
             <Star className="absolute right-8 top-8 size-7 sm:right-12 sm:top-12" />
             <div className="relative">
-              <SectionHeading id="results-title" eyebrow="Results" size="huge" title={"The first SHOWGUY campaigns are being built right now."} className="max-w-4xl" />
+              <SectionHeading id="results-title" eyebrow="Our work" size="huge" title={"Good work speaks for itself."} className="max-w-4xl" />
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-paper/85 sm:text-xl">
-                The founding roster is where they start. As campaigns generate meaningful results, this is where we&rsquo;ll show exactly what worked, with the artist&rsquo;s permission.
+                SHOWGUY is building its first collection of creative projects and digital partnerships.
               </p>
+              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-paper/85 sm:text-xl">
+                As projects launch, we&rsquo;ll share selected work here.
+              </p>
+              <ul className="mt-6 flex flex-wrap gap-2.5" aria-label="What will appear here">
+                {["Website projects", "Campaign concepts", "Digital experiences", "Creative projects", "Case studies"].map((t) => (
+                  <li key={t} className="rounded-full border border-paper/30 px-4 py-1.5 text-sm font-bold text-lav">
+                    {t}
+                  </li>
+                ))}
+              </ul>
               <ButtonLink href="/apply" className="mt-8">
-                Be one of the first
+                Start a project
               </ButtonLink>
             </div>
           </div>

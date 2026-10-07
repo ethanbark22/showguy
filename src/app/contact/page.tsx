@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 
 export const metadata = pageMetadata({
   title: "Contact",
-  description: "Get in touch with SHOWGUY about working together, press or anything else.",
+  description: "Get in touch with SHOWGUY about a creative or digital project, press or anything else.",
   path: "/contact",
 });
 
@@ -17,9 +17,9 @@ export default function ContactPage() {
         <header className="lg:col-span-5">
           <h1 className="display text-huge">Say hello.</h1>
           <p className="mt-6 text-lg leading-relaxed text-paper/90 sm:text-xl">
-            For a general question, press or something else. If you&rsquo;re an artist who wants to work with us,{" "}
+            For a general question, press or something else. If you have a project in mind,{" "}
             <Link href="/apply" className="font-bold underline underline-offset-4">
-              apply here
+              start an enquiry here
             </Link>{" "}
             instead.
           </p>

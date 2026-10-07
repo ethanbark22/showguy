@@ -74,9 +74,9 @@ export default async function JournalPost({ params }: Props) {
       </div>
 
       <div className="mt-16 rounded-3xl border border-violet/40 bg-plum p-6 sm:p-8">
-        <p className="display text-3xl">Want a digital team behind your music?</p>
+        <p className="display text-3xl">Got a project in mind?</p>
         <ButtonLink href="/apply" className="mt-5">
-          Apply to work with SHOWGUY
+          Start a project
         </ButtonLink>
       </div>
     </article>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
-import { validateField, type Field, type FieldGroup, type FormState } from "@/lib/forms";
+import { readField, validateField, type Field, type FieldGroup, type FormState } from "@/lib/forms";
 import { site } from "@/config/site";
 import { Button } from "./Button";
 
@@ -70,13 +70,15 @@ export function DynamicForm({ groups, action, submitLabel, success, successHref,
 
   const readValues = () => {
     const fd = new FormData(formRef.current!);
-    return Object.fromEntries(allFields.map((f) => [f.name, String(fd.get(f.name) ?? "")]));
+    return Object.fromEntries(allFields.map((f) => [f.name, readField(f, fd)]));
   };
 
   /** Move the person to the first answer that needs fixing. */
   const focusFirst = (errs: Record<string, string>) => {
     const first = allFields.find((f) => errs[f.name]);
-    const el = first && (formRef.current?.elements.namedItem(first.name) as HTMLElement | null);
+    const found = first && formRef.current?.elements.namedItem(first.name);
+    // A group of tick boxes comes back as a list: go to the first box
+    const el = (found && "length" in found ? (found as RadioNodeList)[0] : found) as HTMLElement | null | undefined;
     if (el) {
       el.scrollIntoView({ block: "center" });
       el.focus({ preventScroll: true });
@@ -95,7 +97,8 @@ export function DynamicForm({ groups, action, submitLabel, success, successHref,
   function onBlur(e: React.FocusEvent<HTMLFormElement>) {
     const t = e.target as unknown as HTMLInputElement;
     const f = byName[t.name];
-    if (f) setFieldError(f.name, validateField(f, t.value));
+    // Tick boxes are checked when ticked, not when tabbed past
+    if (f && f.kind !== "checkboxes") setFieldError(f.name, validateField(f, t.value));
   }
 
   function onChange(e: React.ChangeEvent<HTMLFormElement>) {
@@ -103,7 +106,9 @@ export function DynamicForm({ groups, action, submitLabel, success, successHref,
     const f = byName[t.name];
     if (!f) return;
     // Once a problem is showing, re-check as they type so it clears straight away
-    if (errors[f.name] && !crossErrorKeys.current.has(f.name)) setFieldError(f.name, validateField(f, t.value));
+    if (errors[f.name] && !crossErrorKeys.current.has(f.name)) {
+      setFieldError(f.name, validateField(f, f.kind === "checkboxes" ? readValues()[f.name] : t.value));
+    }
     if (cross && cross.fields.includes(f.name) && crossErrorKeys.current.size) {
       const still = cross.check(readValues());
       crossErrorKeys.current.forEach((k) => {
@@ -284,7 +289,7 @@ export function DynamicForm({ groups, action, submitLabel, success, successHref,
           {redirecting ? "Sent. One moment…" : pending ? "Sending…" : submitLabel}
         </Button>
         <p className="mt-4 max-w-md text-sm text-mute-text">
-          We only use your details to review your application and respond to you.{" "}
+          We only use your details to look at your enquiry and respond to you.{" "}
           <Link href="/privacy" className="font-bold text-lav underline underline-offset-2">
             Privacy Policy
           </Link>
@@ -308,6 +313,58 @@ function FieldControl({ field: f, id, error }: { field: Field; id: string; error
     "aria-describedby": [hintId, errId].filter(Boolean).join(" ") || undefined,
     autoComplete: f.autoComplete,
   } as const;
+
+  if (f.kind === "checkboxes") {
+    return (
+      <div
+        role="group"
+        aria-labelledby={`${id}-label`}
+        className={`row-span-3 grid grid-rows-subgrid pb-5 ${full ? "sm:col-span-2" : ""}`}
+        aria-describedby={[hintId, errId].filter(Boolean).join(" ") || undefined}
+      >
+        <div>
+          <p id={`${id}-label`} className="block text-[0.95rem] font-bold leading-snug">
+            {f.label}
+            {f.required && (
+              <span aria-hidden="true" className="text-lav">
+                {"\u00a0"}*
+              </span>
+            )}
+          </p>
+          {f.hint && (
+            <p id={hintId} className="mt-1 text-[0.82rem] leading-snug text-mute-text">
+              {f.hint}
+            </p>
+          )}
+        </div>
+        <div className="mt-3 flex flex-wrap gap-2.5">
+          {f.options?.map((o, i) => (
+            <label key={o} className="cursor-pointer">
+              <input id={i === 0 ? id : undefined} type="checkbox" name={f.name} value={o} className="peer sr-only" />
+              <span
+                className={`block min-h-11 rounded-full border-2 px-4 py-2.5 text-[0.95rem] font-bold leading-snug transition-colors duration-200 peer-checked:border-violet peer-checked:bg-violet-strong peer-checked:text-paper peer-focus-visible:shadow-[0_0_0_4px_rgb(139_92_246/0.35)] hover:border-violet ${
+                  error ? "border-danger" : "border-line-strong"
+                } bg-field text-paper`}
+              >
+                {o}
+              </span>
+            </label>
+          ))}
+        </div>
+        {error ? (
+          <p id={errId} className="mt-1.5 flex items-start gap-1.5 text-sm font-semibold leading-snug text-danger">
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="mt-0.5 size-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v6M12 16.5v.5" />
+            </svg>
+            {error}
+          </p>
+        ) : (
+          <span aria-hidden="true" />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className={`row-span-3 grid grid-rows-subgrid pb-5 ${full ? "sm:col-span-2" : ""}`}>

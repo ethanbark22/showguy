@@ -1,6 +1,6 @@
 # SHOWGUY website
 
-The marketing site for SHOWGUY: a one-page homepage, an application form (`/apply`), a contact page (`/contact`) and placeholder legal pages. Built with Next.js, TypeScript and Tailwind CSS, ready for Vercel. No database, no logins.
+The marketing site for SHOWGUY, the creative and digital partner for music: a one-page homepage, an enquiry form (`/apply`), a contact page (`/contact`) and placeholder legal pages. Built with Next.js, TypeScript and Tailwind CSS, ready for Vercel. No database, no logins.
 
 > Short on time? You only ever need to edit files in **`src/config/`** and **`public/brand/`**. Everything else is layout.
 
@@ -35,11 +35,11 @@ npm run build
 | What you want to change | File |
 |---|---|
 | Hero text, section headlines, "Why SHOWGUY?" | `src/components/Hero.tsx` and `src/components/sections/*.tsx` (each section is one file; the words are in plain sight) |
-| The six services, the four steps, the "who we're looking for" list, the vision words | `src/config/services.ts` |
+| The three services, the four process steps, the audience cards, the floating labels, the vision words | `src/config/services.ts` |
 | Menu links | `src/config/navigation.ts` |
 | FAQ questions and answers | `src/config/faq.ts` |
-| "Good fit / probably not yet" lists and the monthly workflow steps | `src/config/services.ts` |
-| The founding-rate explanation, price and "what's included" list | `src/config/pricing.ts` |
+| The three services, the four process steps, the audience cards and the floating "music work" labels | `src/config/services.ts` |
+| The "Project work / Ongoing partnerships" options | `src/config/engagements.ts` |
 | Site name, page description (Google result text) | `src/config/site.ts` |
 
 Tip: ask Claude Code, "change the hero text to …", and it will find the right file.
@@ -48,9 +48,9 @@ Tip: ask Claude Code, "change the hero text to …", and it will find the right 
 
 Copy rules we've followed: British English, no fake clients, testimonials, results or press. Please keep it that way until you have the real thing.
 
-## 4. Change the pricing
+## 4. Pricing and services
 
-Open **`src/config/pricing.ts`**. Change `price`, `term` or the `includes` list. The homepage offer card updates. The application form's budget dropdown options are in the same file.
+There are **no public prices** on the site: scope and cost are agreed in conversation. The "One-off project? Ongoing partner?" section is edited in **`src/config/engagements.ts`**. The budget choices on the enquiry form are in **`src/config/pricing.ts`**. The three service cards are in **`src/config/services.ts`**.
 
 ## 5. Add your email and social links
 
@@ -76,7 +76,7 @@ Different mascot proportions? Update `width` and `height` in `src/config/brand.t
 - Questions are defined once in `src/lib/forms.ts`. Add, remove or reword a question there, and both the page and the checks update.
 - The same file controls how the page is laid out: each section's number, title and one-line intro; which questions sit side by side (`full: true` gives a question the whole row); and the helper text under each label. Social links accept a full URL or just a handle (`@artistname`), and are tidied into full links before they reach you.
 - The form is checked in the browser as people fill it in (so mistakes show straight away) and again on the server. The left-hand column stays in view on a desktop while the form scrolls. Its text lives in `src/components/ApplySidebar.tsx`.
-- When someone presses **Send application**, the answers go to a server function (`src/app/actions.ts`) which checks them again (never trusting the browser), then passes them on (`src/lib/deliver.ts`).
+- When someone presses **Send enquiry**, the answers go to a server function (`src/app/actions.ts`) which checks them again (never trusting the browser), then passes them on (`src/lib/deliver.ts`).
 - Spam protection: a hidden trap field real people never fill in, a minimum time on the page, a limit of 5 sends per 10 minutes per visitor, and length limits. This stops most basic bots. If spam still gets through, add Cloudflare Turnstile (free) or Vercel BotID later.
 - **Running locally with nothing configured:** the form works and prints the answers in your terminal, so you can test.
 - **On the live site with nothing configured:** the form shows an error rather than pretending to send. You must connect a destination (next section) before launch.

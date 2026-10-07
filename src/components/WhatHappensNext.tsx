@@ -1,7 +1,7 @@
 const steps = [
-  "You send your application.",
-  "We review the artist and the project.",
-  "If it looks like a fit, we'll get in touch to arrange a conversation.",
+  "You tell us about your project.",
+  "We look at what you need.",
+  "We get in touch to talk it through.",
 ];
 
 /** `done` marks the first N steps as already complete (used on the thank-you page). */

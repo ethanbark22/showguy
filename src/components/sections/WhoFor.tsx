@@ -1,46 +1,43 @@
-import { goodFit, notYet } from "@/config/services";
+import { audiences } from "@/config/services";
 import { SectionHeading } from "../SectionHeading";
+import { ButtonLink } from "../Button";
+
+const tones = {
+  deep: "bg-deep text-paper",
+  lav: "bg-lav text-ink",
+  dark: "bg-ink text-paper",
+  violet: "bg-violet text-ink",
+} as const;
 
 export function WhoFor() {
   return (
     <section aria-labelledby="who-title" className="on-light bg-paper text-ink">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
-        <SectionHeading id="who-title" eyebrow="Who it's for" size="huge" title="SHOWGUY works best when…" className="reveal" />
+        <SectionHeading id="who-title" eyebrow="Who we work with" size="huge" title={"Built for people who take music seriously."} className="reveal max-w-5xl" />
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-2">
-          <div className="reveal rounded-[2rem] border-2 border-ink bg-deep p-6 text-paper sm:p-9">
-            <h3 className="display text-4xl text-lav sm:text-5xl">Good fit</h3>
-            <ul className="mt-6 space-y-4">
-              {goodFit.map((item) => (
-                <li key={item} className="flex gap-3 text-lg leading-snug">
-                  <svg aria-hidden="true" viewBox="0 0 24 24" className="mt-0.5 size-5 shrink-0 text-lav" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 12.5l5 5L20 6.5" />
-                  </svg>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {audiences.map((a, i) => (
+            <li
+              key={a.title}
+              className={`reveal flex min-h-64 flex-col justify-between rounded-[2rem] border-2 border-ink p-6 transition duration-300 hover:-translate-y-1.5 hover:shadow-[8px_8px_0_0_#0d0d10] sm:p-7 ${tones[a.tone]}`}
+            >
+              <span aria-hidden="true" className="display text-5xl opacity-60">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 className="display text-[clamp(1.6rem,2.2vw,2.1rem)]">{a.title}</h3>
+                <p className="mt-3 text-base leading-snug opacity-90">{a.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-          <div className="reveal rounded-[2rem] border-2 border-dashed border-ink p-6 sm:p-9">
-            <h3 className="display text-4xl text-ink-soft sm:text-5xl">Probably not yet</h3>
-            <ul className="mt-6 space-y-4">
-              {notYet.map((item) => (
-                <li key={item} className="flex gap-3 text-lg leading-snug">
-                  <span aria-hidden="true" className="mt-[0.8em] h-0.5 w-4 shrink-0 bg-ink-soft" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 text-base text-ink-soft">
-              That&rsquo;s not a judgement. If any of these change, we&rsquo;d be glad to hear from you.
-            </p>
-          </div>
+        <div className="reveal mt-12 flex flex-col gap-5 sm:flex-row sm:items-center">
+          <p className="max-w-xl text-lg">Not sure which one you are? Tell us about your project and we&rsquo;ll point you in the right direction.</p>
+          <ButtonLink href="/apply" className="shrink-0">
+            Let&rsquo;s talk
+          </ButtonLink>
         </div>
-
-        <p className="display text-big reveal mt-14 text-balance">
-          Good music helps. <span className="mark">Ambition is essential.</span>
-        </p>
       </div>
     </section>
   );

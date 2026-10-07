@@ -46,14 +46,16 @@ export function Founder() {
           </div>
 
           <div className="reveal lg:col-span-8">
-            <SectionHeading id="about-title" eyebrow="About" size="huge" title="The person behind SHOWGUY." />
+            <SectionHeading id="about-title" eyebrow="About" size="big" title={"Built for music.\nBuilt for what's next."} />
             <div className="mt-8 max-w-2xl space-y-5 text-lg leading-relaxed sm:text-xl">
               <p className="display text-[clamp(1.3rem,2.4vw,1.85rem)] leading-[1.02]">
-                SHOWGUY was started with a simple idea: artists should be able to focus more on making great music without having to become full-time content marketers at the same time.
+                SHOWGUY is being built as a creative company for the music industry.
               </p>
               <p>
-                The goal is bigger than building another marketing agency. SHOWGUY is being built as a music company &mdash; starting with digital growth and expanding around the artists we work with.
+                We start by helping artists and music businesses with the creative and digital work that makes their projects happen.
               </p>
+              <p>The bigger ambition is to build a company spanning music, media and entertainment.</p>
+              <p className="display text-[clamp(1.3rem,2.4vw,1.85rem)] leading-[1.02] text-violet-strong">But every big idea starts somewhere.</p>
             </div>
             <p className="mt-8 flex items-center gap-3">
               <Star className="size-5 shrink-0" />

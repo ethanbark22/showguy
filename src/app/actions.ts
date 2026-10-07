@@ -7,6 +7,7 @@ import {
   applicationSchema,
   contactFields,
   contactSchema,
+  readField,
   type Field,
   type FormState,
 } from "@/lib/forms";
@@ -45,7 +46,7 @@ async function handle(
   }
 
   // 3. Validate on the server (never trust the browser).
-  const raw = Object.fromEntries(fields.map((f) => [f.name, String(formData.get(f.name) ?? "")]));
+  const raw = Object.fromEntries(fields.map((f) => [f.name, readField(f, formData)]));
   const parsed = schema.safeParse(raw);
   if (!parsed.success) {
     const fieldErrors: Record<string, string> = {};
@@ -68,7 +69,7 @@ async function handle(
 }
 
 export async function submitApplication(formData: FormData): Promise<FormState> {
-  return handle("application", formData, applicationFields, applicationSchema, (d) => `New SHOWGUY application: ${d.artistName}`);
+  return handle("application", formData, applicationFields, applicationSchema, (d) => `New SHOWGUY enquiry: ${d.company} (${d.role})`);
 }
 
 export async function submitContact(formData: FormData): Promise<FormState> {

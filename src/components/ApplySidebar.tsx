@@ -18,7 +18,7 @@ function TimeChip() {
         <circle cx="12" cy="12" r="9" />
         <path d="M12 7v5l3 2" />
       </svg>
-      Around 5–10 minutes
+      Around 5 minutes
     </p>
   );
 }
@@ -32,20 +32,19 @@ export function ApplySidebar() {
     <aside className="lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain lg:pr-1">
       <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
         <p className="inline-block rounded-full border-2 border-lav px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-lav">
-          Founding roster
+          Start a project
         </p>
         <TimeChip />
       </div>
       <h1 className="display text-[clamp(2.5rem,4.6vw,4rem)]">
-        <span className="block">Apply to</span>
-        <span className="block">work with</span>
-        <span className="block">SHOWGUY.</span>
+        <span className="block">Let&rsquo;s work</span>
+        <span className="block">together.</span>
       </h1>
       <p className="mt-5 max-w-md text-lg leading-relaxed text-paper/90">
-        Tell us about your music, your next release and where you&rsquo;re trying to go.
+        Tell us a little about your project, your team and what you need help with.
       </p>
       <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-mute-text">
-        The more useful context you give us, the better we can understand whether SHOWGUY is the right fit.
+        The more context you give us, the better we can point you in the right direction.
       </p>
 
       {/* Phones: a small mascot beside the intro, then straight into the form */}

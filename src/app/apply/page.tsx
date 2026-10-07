@@ -4,8 +4,8 @@ import { ApplySidebar, applySections } from "@/components/ApplySidebar";
 import { FormProgress } from "@/components/FormProgress";
 
 export const metadata = pageMetadata({
-  title: "Apply to work with SHOWGUY",
-  description: "Tell us about your music, your next release and where you want to go. We're selecting a small number of independent artists for the SHOWGUY founding roster.",
+  title: "Work with SHOWGUY: start a project",
+  description: "Tell us a little about your project, your team and what you need help with. SHOWGUY is a creative and digital partner for artists, managers, labels and music businesses.",
   path: "/apply",
 });
 

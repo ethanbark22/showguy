@@ -55,14 +55,14 @@ export const services: Service[] = [
   },
 ];
 
-/** The same work, grouped by capability: a quick-scan summary under the three pillars. */
+/** The five connected capabilities. `line` is the short idea; `items` are the examples. */
 export const capabilities = [
-  { area: "Strategy", items: ["Release planning", "Campaign concepts", "Timelines", "Creative direction"] },
-  { area: "Web", items: ["Artist websites", "Release pages", "Landing pages", "Fan signup journeys"] },
-  { area: "Communications", items: ["Email campaigns", "Release announcements", "Fan communications", "Launch messaging"] },
-  { area: "Digital execution", items: ["Campaign coordination", "Asset organisation", "Digital rollout", "Updates and implementation"] },
-  { area: "Insights", items: ["Reporting", "Campaign review", "Lessons for the next project"] },
-];
+  { number: "01", area: "Strategy", line: "Plan the campaign before the work starts.", items: ["Release planning", "Campaign concepts", "Timelines", "Creative direction"], tone: "deep" },
+  { number: "02", area: "Web", line: "Build the places the campaign actually lives.", items: ["Artist websites", "Release pages", "Landing pages", "Fan signup journeys"], tone: "lav" },
+  { number: "03", area: "Communications", line: "Give the campaign something worth saying.", items: ["Email campaigns", "Release announcements", "Fan communications", "Launch messaging"], tone: "dark" },
+  { number: "04", area: "Digital execution", line: "Keep the moving parts moving.", items: ["Campaign coordination", "Asset organisation", "Digital rollout", "Updates & implementation"], tone: "paper" },
+  { number: "05", area: "Insights", line: "Learn from the campaign, not just finish it.", items: ["Reporting", "Campaign review", "What worked", "What comes next"], tone: "violet" },
+] as const;
 
 export const processSteps = [
   {

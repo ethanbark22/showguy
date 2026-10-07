@@ -6,6 +6,7 @@ import { Hero } from "@/components/Hero";
 import { CTA } from "@/components/CTA";
 import { Problem } from "@/components/sections/Problem";
 import { Services } from "@/components/sections/Services";
+import { Capabilities } from "@/components/sections/Capabilities";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Offer } from "@/components/sections/Offer";
 import { WhoFor } from "@/components/sections/WhoFor";
@@ -34,6 +35,7 @@ export default function HomePage() {
       <Hero />
       <Problem />
       <Services />
+      <Capabilities />
       <HowItWorks />
       <Offer />
       <WhoFor />

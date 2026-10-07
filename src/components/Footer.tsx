@@ -15,7 +15,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pb-8 pt-14 sm:px-8 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-5">
           <Logo tone="dark" />
-          <p className="mt-4 max-w-xs text-mute-text">Creative and digital services for music.</p>
+          <p className="mt-4 max-w-xs text-mute-text">Digital campaigns for music.</p>
           {site.email && (
             <a href={`mailto:${site.email}`} className="mt-4 inline-block font-bold underline underline-offset-4 hover:text-lav">
               {site.email}

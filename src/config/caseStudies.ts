@@ -1,32 +1,37 @@
-export type CaseStudyMetric = {
+export type CaseStudyOutput = {
   label: string;
-  /** e.g. "1,200" */
+  /** e.g. "1,200". Only ever a real, measured figure. */
+  value?: string;
+  /** Optional before / after, e.g. before "3,400" after "5,100", change "+50%". */
   before?: string;
-  /** e.g. "3,400" */
   after?: string;
-  /** e.g. "+183%". Only ever a real, measured figure. */
   change?: string;
   note?: string;
 };
 
 export type CaseStudy = {
   slug: string;
-  artist: string;
-  /** Photo of the artist: { src: "/case-studies/name/artist.jpg", alt: "…" } */
-  artistImage?: { src: string; alt: string };
-  campaign: string;
+  /** The artist, label or business the work was for. */
+  client: string;
+  /** Photo or logo of the client: { src: "/case-studies/name/client.jpg", alt: "…" } */
+  clientImage?: { src: string; alt: string };
+  /** e.g. "Release campaign", "Artist website", "Digital launch", "Ongoing partnership" */
+  projectType: string;
   /** e.g. "March – May 2027" */
-  period?: string;
-  problem: string;
-  strategy: string;
-  /** Before / after numbers and the change. */
-  metrics: CaseStudyMetric[];
-  /** The posts that did best. */
-  topContent?: { title: string; stat?: string; image?: { src: string; alt: string } }[];
+  timeline?: string;
+  challenge: string;
+  /** How we approached the campaign or project. */
+  approach: string;
+  /** What was delivered, e.g. ["Release website", "Launch email series"]. */
+  deliverables: string[];
+  /** Screenshots of websites or campaign pages: { src: "/case-studies/name/site.jpg", alt: "…" } */
+  screenshots?: { src: string; alt: string }[];
+  /** Measurable outputs (only real, measured ones). */
+  outputs?: CaseStudyOutput[];
   testimonial?: { quote: string; name: string; role?: string };
   /**
    * REQUIRED. A case study is only shown on the site when this is true,
-   * meaning the artist has agreed (in writing) to it being published.
+   * meaning the client has agreed (in writing) to it being published.
    */
   artistPermission: boolean;
   /** NEVER set this on a real case study. See DEV_SAMPLE_CASE_STUDIES below. */
@@ -48,17 +53,14 @@ export const caseStudies: CaseStudy[] = [];
 export const DEV_SAMPLE_CASE_STUDIES: CaseStudy[] = [
   {
     slug: "sample",
-    artist: "Sample Artist",
-    campaign: "Sample single campaign",
-    period: "Sample period",
-    problem: "Placeholder text describing the artist's problem.",
-    strategy: "Placeholder text describing what SHOWGUY did.",
-    metrics: [
-      { label: "Metric one", before: "000", after: "000", change: "00%" },
-      { label: "Metric two", before: "000", after: "000", change: "00%" },
-    ],
-    topContent: [{ title: "Placeholder top post", stat: "000 views" }],
-    testimonial: { quote: "Placeholder quote.", name: "Sample Artist" },
+    client: "Sample Client",
+    projectType: "Sample release campaign",
+    timeline: "Sample timeline",
+    challenge: "Placeholder text describing the challenge.",
+    approach: "Placeholder text describing what SHOWGUY did.",
+    deliverables: ["Placeholder deliverable one", "Placeholder deliverable two"],
+    outputs: [{ label: "Placeholder output", before: "000", after: "000", change: "00%" }],
+    testimonial: { quote: "Placeholder quote.", name: "Sample Client" },
     artistPermission: true,
     isSample: true,
   },

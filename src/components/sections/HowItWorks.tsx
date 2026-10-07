@@ -16,7 +16,7 @@ export function HowItWorks() {
         </ol>
         <p className="mt-12 flex items-center gap-3 text-base font-medium text-lav sm:text-lg">
           <Star className="size-5 shrink-0" />
-          For ongoing partnerships, the process repeats as new priorities arise.
+          For ongoing partnerships, the cycle repeats across future releases and projects.
         </p>
       </div>
     </section>

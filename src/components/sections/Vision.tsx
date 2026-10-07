@@ -11,7 +11,7 @@ export function Vision() {
             SHOWGUY is being built around one idea: find great artists, help them grow, and create things people actually care about.
           </p>
           <p className="max-w-xl text-lg leading-relaxed text-lav sm:text-xl">
-            Today that starts with creative and digital work. Tomorrow it gets much bigger.
+            Today that starts with digital campaigns for music. Tomorrow it gets much bigger.
           </p>
         </div>
         <ul className="mt-14 border-t border-paper/20" aria-label="The wider SHOWGUY plan">
@@ -26,7 +26,7 @@ export function Vision() {
           ))}
         </ul>
         <p className="mt-6 text-sm text-mute-text">
-          Creative and digital services are what we do now. The rest is the plan, not the product list.
+          Digital campaigns for music are what we do now. The rest is the plan, not the product list.
         </p>
       </div>
     </section>

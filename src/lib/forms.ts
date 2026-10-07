@@ -44,13 +44,16 @@ export type FieldGroup = {
 
 const roles = ["Independent artist", "Artist manager", "Record label", "Promoter", "Music business", "Other"];
 const needs = [
-  "Website or digital project",
-  "Campaign planning",
-  "Creative direction",
-  "Digital communications",
+  "Release campaign",
+  "Website or digital experience",
+  "Campaign strategy",
+  "Fan communications / email",
   "Ongoing digital support",
+  "Tour or event campaign",
   "Not sure yet",
 ];
+
+const launching = ["Single", "EP", "Album", "Tour", "Artist brand", "Website", "Campaign", "Event", "Other"];
 
 /**
  * The enquiry form. It works for artists, managers, labels, promoters and
@@ -94,10 +97,11 @@ export const applicationGroups: FieldGroup[] = [
     short: "Project",
     intro: "A few lines is plenty. We'll ask if we need more.",
     fields: [
-      { name: "project", label: "What's your project?", kind: "textarea", required: true, rows: 4, hint: "What are you working on, and what do you need from us?" },
+      { name: "project", label: "What's your project?", kind: "textarea", required: true, rows: 4, hint: "The artist, release or project, and what you need help bringing to life." },
       { name: "outcome", label: "What would a successful outcome look like?", kind: "textarea", rows: 3, hint: "Optional" },
+      { name: "launching", label: "What are you launching?", kind: "select", options: launching, hint: "Optional" },
       { name: "start", label: "When would you like to start?", kind: "select", required: true, options: ["Immediately", "Within 30 days", "Within 1–3 months", "Just exploring"] },
-      { name: "budget", label: "What's your approximate budget?", kind: "select", required: true, options: budgetOptions, hint: "Just helps us suggest the right approach." },
+      { name: "budget", label: "What's your approximate budget?", kind: "select", required: true, options: budgetOptions, hint: "Just helps us suggest the right approach.", full: true },
     ],
   },
   {

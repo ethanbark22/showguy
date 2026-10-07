@@ -13,7 +13,7 @@ export function WhoFor() {
   return (
     <section aria-labelledby="who-title" className="on-light bg-paper text-ink">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
-        <SectionHeading id="who-title" eyebrow="Who we work with" size="huge" title={"Built for people who take music seriously."} className="reveal max-w-5xl" />
+        <SectionHeading id="who-title" eyebrow="Who we work with" size="huge" title={"Built for people with music to launch."} className="reveal max-w-5xl" />
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {audiences.map((a, i) => (
@@ -33,7 +33,7 @@ export function WhoFor() {
         </ul>
 
         <div className="reveal mt-12 flex flex-col gap-5 sm:flex-row sm:items-center">
-          <p className="max-w-xl text-lg">Not sure which one you are? Tell us about your project and we&rsquo;ll point you in the right direction.</p>
+          <p className="max-w-xl text-lg">Not sure which one you are? Tell us what you&rsquo;re launching and we&rsquo;ll point you in the right direction.</p>
           <ButtonLink href="/apply" className="shrink-0">
             Let&rsquo;s talk
           </ButtonLink>

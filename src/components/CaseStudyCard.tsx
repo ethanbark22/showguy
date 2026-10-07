@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { CaseStudy } from "@/config/caseStudies";
 
-/** One real client result. Fed from src/config/caseStudies.ts. */
+/** One real project. Fed from src/config/caseStudies.ts. Works for campaigns, websites, launches and ongoing partnerships. */
 export function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <article className="on-light relative rounded-[2rem] border-2 border-ink bg-paper p-6 text-ink sm:p-9">
@@ -12,10 +12,10 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
       )}
 
       <header className="flex items-center gap-5">
-        {study.artistImage && (
+        {study.clientImage && (
           <Image
-            src={study.artistImage.src}
-            alt={study.artistImage.alt}
+            src={study.clientImage.src}
+            alt={study.clientImage.alt}
             width={160}
             height={160}
             loading="lazy"
@@ -24,25 +24,49 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
         )}
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-soft">
-            {study.campaign}
-            {study.period && <> · {study.period}</>}
+            {study.projectType}
+            {study.timeline && <> · {study.timeline}</>}
           </p>
-          <h3 className="display mt-1 text-4xl sm:text-5xl">{study.artist}</h3>
+          <h3 className="display mt-1 text-4xl sm:text-5xl">{study.client}</h3>
         </div>
       </header>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wide">The problem</h4>
-          <p className="mt-1 leading-relaxed">{study.problem}</p>
-          <h4 className="mt-4 text-sm font-bold uppercase tracking-wide">What we did</h4>
-          <p className="mt-1 leading-relaxed">{study.strategy}</p>
+          <h4 className="text-sm font-bold uppercase tracking-wide">The challenge</h4>
+          <p className="mt-1 leading-relaxed">{study.challenge}</p>
+          <h4 className="mt-4 text-sm font-bold uppercase tracking-wide">Our approach</h4>
+          <p className="mt-1 leading-relaxed">{study.approach}</p>
         </div>
-        <ul className="space-y-3">
-          {study.metrics.map((m) => (
+        <div>
+          <h4 className="text-sm font-bold uppercase tracking-wide">What we delivered</h4>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {study.deliverables.map((d) => (
+              <li key={d} className="rounded-full bg-lav px-3.5 py-1.5 text-sm font-bold">
+                {d}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {study.screenshots && study.screenshots.length > 0 && (
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {study.screenshots.map((img) => (
+            <li key={img.src} className="group overflow-hidden rounded-2xl border-2 border-ink">
+              <Image src={img.src} alt={img.alt} width={1200} height={800} loading="lazy" className="h-auto w-full transition duration-500 group-hover:scale-105" />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {study.outputs && study.outputs.length > 0 && (
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {study.outputs.map((m) => (
             <li key={m.label} className="rounded-2xl bg-ink/[0.06] p-4">
               <p className="text-xs font-bold uppercase tracking-wide">{m.label}</p>
               <p className="mt-1 flex flex-wrap items-baseline gap-x-3">
+                {m.value && <span className="display text-3xl">{m.value}</span>}
                 {m.before && <span className="display text-2xl text-ink-soft">{m.before}</span>}
                 {m.before && m.after && <span aria-label="to">→</span>}
                 {m.after && <span className="display text-3xl">{m.after}</span>}
@@ -52,25 +76,6 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
             </li>
           ))}
         </ul>
-      </div>
-
-      {study.topContent && study.topContent.length > 0 && (
-        <div className="mt-6">
-          <h4 className="text-sm font-bold uppercase tracking-wide">Top-performing content</h4>
-          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {study.topContent.map((c) => (
-              <li key={c.title} className="group overflow-hidden rounded-2xl border border-ink/20 bg-white/50">
-                {c.image && (
-                  <Image src={c.image.src} alt={c.image.alt} width={600} height={800} loading="lazy" className="h-auto w-full transition duration-500 group-hover:scale-105" />
-                )}
-                <div className="p-3">
-                  <p className="font-bold leading-snug">{c.title}</p>
-                  {c.stat && <p className="text-sm text-ink-soft">{c.stat}</p>}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
       )}
 
       {study.testimonial && (

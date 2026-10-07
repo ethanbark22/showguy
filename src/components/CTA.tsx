@@ -17,16 +17,15 @@ export function CTA() {
         <div className="pb-8 lg:col-span-8 lg:pb-36">
           <Star className="mb-6 size-8" />
           <h2 id="final-cta" className="display text-huge reveal text-balance">
-            Got a project? Let&rsquo;s make it happen.
+            Got something coming up?
           </h2>
           <p className="mt-6 max-w-xl text-lg font-medium text-paper/85 sm:text-xl">
-            Whether you&rsquo;re an artist with an idea, a label with a release or a music team that needs an extra pair of hands, we&rsquo;d love to hear what you&rsquo;re working on.
-          </p>
+            Tell us what you&rsquo;re launching and where you need help. We&rsquo;ll figure out whether SHOWGUY is the right partner.</p>
           <ButtonLink href="/apply" className="mt-8">
-            Work with SHOWGUY
+            Discuss your project
           </ButtonLink>
           <p className="mt-4 max-w-md text-sm text-mute-text">
-            No pressure. Tell us what you&rsquo;re working on and we&rsquo;ll take it from there.
+            No pressure. A short message is all it takes to start.
           </p>
         </div>
         {/* He stands on the bottom edge of the section, beside the button */}

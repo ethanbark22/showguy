@@ -13,60 +13,69 @@ export type FaqItem = {
 
 export const faqs: FaqItem[] = [
   {
-    id: "who",
-    question: "Who does SHOWGUY work with?",
-    body: [{ type: "p", text: "Independent artists, artist managers, labels, promoters and music businesses." }],
-  },
-  {
-    id: "unsigned",
-    question: "Do you work with unsigned artists?",
-    lead: "Yes.",
-    body: [{ type: "p", text: "We work with independent artists as well as established music teams." }],
-  },
-  {
-    id: "one-project",
-    question: "Can we hire SHOWGUY for one project?",
-    lead: "Yes.",
+    id: "what",
+    question: "What does SHOWGUY actually do?",
     body: [
       {
         type: "p",
-        text: "We offer defined creative and digital projects such as websites, campaign pages and strategy work.",
+        text: "We help artists, managers and labels plan, build and execute the digital side of releases and music projects.",
       },
     ],
   },
   {
-    id: "monthly",
-    question: "Do you offer monthly support?",
+    id: "one-campaign",
+    question: "Can we hire you for one campaign?",
+    lead: "Yes.",
+    body: [{ type: "p", text: "SHOWGUY can work on a defined project with an agreed scope and deliverables." }],
+  },
+  {
+    id: "ongoing",
+    question: "Do you offer ongoing support?",
     lead: "Yes.",
     body: [
       {
         type: "p",
-        text: "We can discuss an ongoing partnership built around an agreed monthly scope of work.",
+        text: "For clients with a regular pipeline of releases or digital work, we can work as an ongoing external digital partner.",
       },
     ],
-  },
-  {
-    id: "guarantees",
-    question: "Do you guarantee streams or sales?",
-    lead: "No.",
-    body: [
-      {
-        type: "p",
-        text: "We focus on agreed deliverables, professional execution and clear communication rather than guaranteeing outcomes outside our control.",
-      },
-    ],
-  },
-  {
-    id: "remote",
-    question: "Do you work remotely?",
-    lead: "Yes.",
-    body: [{ type: "p", text: "Much of our digital work can be delivered remotely." }],
   },
   {
     id: "websites",
     question: "Do you build websites?",
     lead: "Yes.",
-    body: [{ type: "p", text: "We create websites and digital experiences tailored to artists and music businesses." }],
+    body: [{ type: "p", text: "Websites, release pages and campaign landing pages are part of our digital capabilities." }],
+  },
+  {
+    id: "social",
+    question: "Do you manage social media?",
+    body: [
+      {
+        type: "p",
+        text: "SHOWGUY is not positioned as a generic social media management agency. Social content may support a campaign, but our focus is the wider digital campaign and project.",
+      },
+    ],
+  },
+  {
+    id: "guarantees",
+    question: "Do you guarantee streams or followers?",
+    lead: "No.",
+    body: [
+      {
+        type: "p",
+        text: "We focus on strategy, execution and agreed deliverables rather than guaranteeing outcomes outside our control.",
+      },
+    ],
+  },
+  {
+    id: "existing-team",
+    question: "Can you work with our existing team?",
+    lead: "Yes.",
+    body: [
+      {
+        type: "p",
+        text: "SHOWGUY can work alongside managers, labels, artists, designers, videographers, PR teams and other partners.",
+      },
+    ],
   },
   {
     id: "cost",
@@ -74,7 +83,7 @@ export const faqs: FaqItem[] = [
     body: [
       {
         type: "p",
-        text: "Costs depend on the requirements, scope and complexity of the project. Get in touch and we'll discuss the most appropriate approach.",
+        text: "Pricing depends on the scope, complexity and whether the work is a one-off project or ongoing partnership. Tell us what you're working on and we'll discuss the best approach.",
       },
     ],
   },

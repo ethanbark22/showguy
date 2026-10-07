@@ -1,6 +1,6 @@
 # SHOWGUY website
 
-The marketing site for SHOWGUY, the creative and digital partner for music: a one-page homepage, an enquiry form (`/apply`), a contact page (`/contact`) and placeholder legal pages. Built with Next.js, TypeScript and Tailwind CSS, ready for Vercel. No database, no logins.
+The marketing site for SHOWGUY, digital campaigns for music: a one-page homepage, an enquiry form (`/apply`), a contact page (`/contact`) and placeholder legal pages. Built with Next.js, TypeScript and Tailwind CSS, ready for Vercel. No database, no logins.
 
 > Short on time? You only ever need to edit files in **`src/config/`** and **`public/brand/`**. Everything else is layout.
 
@@ -35,7 +35,7 @@ npm run build
 | What you want to change | File |
 |---|---|
 | Hero text, section headlines, "Why SHOWGUY?" | `src/components/Hero.tsx` and `src/components/sections/*.tsx` (each section is one file; the words are in plain sight) |
-| The three services, the four process steps, the audience cards, the floating labels, the vision words | `src/config/services.ts` |
+| The three services (Plan / Build / Run), the capability summary, the four process steps, the audience cards, the floating labels, the vision words | `src/config/services.ts` |
 | Menu links | `src/config/navigation.ts` |
 | FAQ questions and answers | `src/config/faq.ts` |
 | The three services, the four process steps, the audience cards and the floating "music work" labels | `src/config/services.ts` |
@@ -50,7 +50,7 @@ Copy rules we've followed: British English, no fake clients, testimonials, resul
 
 ## 4. Pricing and services
 
-There are **no public prices** on the site: scope and cost are agreed in conversation. The "One-off project? Ongoing partner?" section is edited in **`src/config/engagements.ts`**. The budget choices on the enquiry form are in **`src/config/pricing.ts`**. The three service cards are in **`src/config/services.ts`**.
+There are **no public prices** on the site: scope and cost are agreed in conversation. The "One-off project? Ongoing partner?" section is edited in **`src/config/engagements.ts`**. The budget choices on the enquiry form are in **`src/config/pricing.ts`**. The Plan / Build / Run service cards are in **`src/config/services.ts`**.
 
 ## 5. Add your email and social links
 

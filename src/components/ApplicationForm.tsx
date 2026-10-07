@@ -16,7 +16,7 @@ export function ApplicationForm() {
       showRequiredNote
       closing={{
         title: "Ready to send it?",
-        body: "We'll take a look at what you've sent and get back to you to talk it through.",
+        body: "We'll take a look at what you're launching and get back to you to talk it through.",
       }}
       closingExtra={
         <div className="mt-8 border-t border-line pt-6 lg:hidden">

@@ -15,7 +15,9 @@ export function EngagementOptions() {
         <p className="display text-6xl text-violet-strong">A</p>
         <h3 className="display mt-3 text-[clamp(2rem,3.6vw,3rem)]">{project.label}</h3>
         <p className="mt-3 text-lg leading-snug">{project.blurb}</p>
-        <ul className="mt-6 space-y-2 border-t border-ink/15 pt-5">
+        {project.suits && <p className="mt-3 text-sm leading-snug text-ink-soft">{project.suits}</p>}
+        <p className="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-ink-soft">{project.listLabel}</p>
+        <ul className="mt-3 space-y-2 border-t border-ink/15 pt-4">
           {project.examples.map((e) => (
             <li key={e} className="flex gap-3 text-base">
               <Tick className="text-violet-strong" />
@@ -23,7 +25,8 @@ export function EngagementOptions() {
             </li>
           ))}
         </ul>
-        <p className="mt-6 rounded-2xl bg-plum p-4 text-base font-medium leading-snug text-paper">{project.copy}</p>
+        <p className="mt-6 rounded-2xl bg-plum p-4 text-base font-bold uppercase leading-snug tracking-wide text-paper">{project.copy}</p>
+        <p className="mt-3 text-sm leading-snug text-ink-soft">{project.scope}</p>
         <div className="mt-auto pt-8">
           <ButtonLink href={project.cta.href} className="w-full">
             {project.cta.label}
@@ -37,7 +40,8 @@ export function EngagementOptions() {
         <p className="display relative text-6xl text-lav">B</p>
         <h3 className="display relative mt-3 text-[clamp(2rem,3.6vw,3rem)]">{partnership.label}</h3>
         <p className="relative mt-3 text-lg leading-snug text-paper/90">{partnership.blurb}</p>
-        <ul className="relative mt-6 space-y-2 border-t border-paper/20 pt-5">
+        <p className="relative mt-6 text-xs font-bold uppercase tracking-[0.18em] text-lav">{partnership.listLabel}</p>
+        <ul className="relative mt-3 space-y-2 border-t border-paper/20 pt-4">
           {partnership.examples.map((e) => (
             <li key={e} className="flex gap-3 text-base">
               <Tick className="text-violet" />
@@ -45,7 +49,8 @@ export function EngagementOptions() {
             </li>
           ))}
         </ul>
-        <p className="relative mt-6 rounded-2xl bg-violet-strong p-4 text-base font-medium leading-snug text-paper">{partnership.copy}</p>
+        <p className="relative mt-6 rounded-2xl bg-violet-strong p-4 text-base font-bold uppercase leading-snug tracking-wide text-paper">{partnership.copy}</p>
+        <p className="relative mt-3 text-sm leading-snug text-mute-text">{partnership.scope}</p>
         <div className="relative mt-auto pt-8">
           <ButtonLink href={partnership.cta.href} className="w-full">
             {partnership.cta.label}

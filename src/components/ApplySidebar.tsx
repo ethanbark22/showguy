@@ -37,11 +37,11 @@ export function ApplySidebar() {
         <TimeChip />
       </div>
       <h1 className="display text-[clamp(2.5rem,4.6vw,4rem)]">
-        <span className="block">Let&rsquo;s work</span>
-        <span className="block">together.</span>
+        <span className="block">What are you</span>
+        <span className="block">working on?</span>
       </h1>
       <p className="mt-5 max-w-md text-lg leading-relaxed text-paper/90">
-        Tell us a little about your project, your team and what you need help with.
+        Tell us about the artist, release or project and what you need help bringing to life.
       </p>
       <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-mute-text">
         The more context you give us, the better we can point you in the right direction.

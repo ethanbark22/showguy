@@ -11,16 +11,16 @@ const pills: Record<string, string> = {
   outline: "border-2 border-paper/60 text-paper",
   star: "bg-star text-ink",
 };
-const order = ["violet", "outline", "lav", "paper", "outline", "violet", "star", "lav", "outline", "star"];
+const order = ["violet", "outline", "lav", "paper", "star", "outline", "violet", "star", "lav", "outline"];
 const tilts = ["-rotate-2", "rotate-1", "rotate-2", "-rotate-1", "rotate-3", "-rotate-3"];
 
 export function Problem() {
   return (
     <section aria-labelledby="problem" className="relative overflow-hidden bg-plum">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
-        <SectionHeading id="problem" eyebrow="The problem" size="huge" title={"There's more to music than making music."} className="reveal max-w-5xl" />
+        <SectionHeading id="problem" eyebrow="The problem" size="huge" title={"Releasing the music is only half the job."} className="reveal max-w-5xl" />
         <p className="mt-8 max-w-2xl text-lg text-paper/85 sm:text-xl">
-          Websites. Campaigns. Content. Releases. Digital platforms. Creative projects.
+          Every release brings a pile of digital work with it.
         </p>
         <ul className="mt-6 flex flex-wrap gap-3 sm:gap-4">
           {musicWork.map((job, i) => (
@@ -35,10 +35,7 @@ export function Problem() {
 
         <div className="mt-20 grid items-end gap-8 lg:grid-cols-12">
           <div className="reveal lg:col-span-8">
-            <p className="max-w-3xl text-lg leading-relaxed text-paper/90 sm:text-xl">
-              Behind every artist and music business is a mountain of work that needs doing.
-            </p>
-            <p className="display text-big mt-5 text-lav">SHOWGUY helps take care of it.</p>
+            <p className="display text-big text-lav">SHOWGUY helps keep the whole thing moving.</p>
           </div>
           {/* The mascot peeks up from the bottom edge of the section */}
           <div className="relative mx-auto -mb-20 w-44 sm:w-56 lg:col-span-4 lg:ml-auto lg:-mb-28 lg:w-64">

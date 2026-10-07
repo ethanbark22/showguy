@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 
 export const metadata = pageMetadata({
   title: "Contact",
-  description: "Get in touch with SHOWGUY about a creative or digital project, press or anything else.",
+  description: "Get in touch with SHOWGUY about a release, campaign or digital project, press or anything else.",
   path: "/contact",
 });
 

@@ -22,17 +22,16 @@ export function Hero() {
               <span>Good music.</span>
             </span>
             <span className="line" style={{ "--i": 1 } as React.CSSProperties}>
-              <span>Great ideas.</span>
+              <span>Deserves a</span>
             </span>
             <span className="line" style={{ "--i": 2 } as React.CSSProperties}>
               <span>
-                <em className="mark">Proper execution.</em>
+                <em className="mark">proper campaign.</em>
               </span>
             </span>
           </h1>
           <p className="fade-up mt-8 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl" style={{ "--d": "0.6s" } as React.CSSProperties}>
-            SHOWGUY is the creative and digital partner for independent artists, labels and music businesses. From websites and digital campaigns to ongoing creative support, we help bring music projects to life.
-          </p>
+            SHOWGUY works with artists, managers and labels to plan, build and execute the digital side of releases, campaigns and music projects. Strategy, websites, fan communications and campaign execution, all connected by one plan.</p>
           <div className="fade-up mt-8 flex flex-col gap-3 sm:flex-row" style={{ "--d": "0.75s" } as React.CSSProperties}>
             <ButtonLink href="/apply">Work with SHOWGUY</ButtonLink>
             <ButtonLink href="#what-we-do" variant="outline" arrow={false}>
@@ -51,9 +50,9 @@ export function Hero() {
             <div className="grid-lines absolute inset-0 opacity-40 mix-blend-overlay" />
           </div>
           <div aria-hidden="true" className="spin-slow absolute -left-3 top-[16%] z-10 grid size-24 place-items-center rounded-full bg-star text-center text-[0.62rem] font-bold uppercase leading-tight tracking-widest text-ink sm:size-28 lg:-left-6">
-            Creative
+            Digital
             <br />
-            &amp; digital
+            campaigns
             <br />
             for music
           </div>

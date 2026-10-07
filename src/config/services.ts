@@ -21,109 +21,102 @@ export type Service = {
 export const services: Service[] = [
   {
     number: "01",
-    category: "Digital & Creative",
-    headline: "Build something worth looking at.",
-    body: "From artist websites to digital campaign experiences, we create the online assets that give music projects a proper home.",
-    examples: [
-      "Artist and music business websites",
-      "Electronic press kits",
-      "Campaign landing pages",
-      "Release pages",
-      "Fan signup experiences",
-      "Digital creative assets",
-    ],
-    note: "Project-based. Scoped around what you need.",
+    category: "Plan",
+    headline: "Start with a proper campaign.",
+    body: "We define the story, the timeline, the digital touchpoints and what actually needs to happen around the release or project.",
+    examples: ["Campaign strategy", "Release timelines", "Creative direction", "Audience journey", "Launch planning"],
+    note: "The plan everything else hangs on.",
     tone: "deep",
   },
   {
     number: "02",
-    category: "Campaigns",
-    headline: "Give the release a proper plan.",
-    body: "Great releases deserve more than an announcement post. We help plan and coordinate creative digital campaigns around music, artists and events.",
-    examples: [
-      "Release campaign planning",
-      "Campaign concepts",
-      "Digital campaign strategy",
-      "Creative direction",
-      "Campaign timelines",
-      "Audience communication planning",
-      "Digital launch coordination",
-    ],
-    note: "Defined strategy and deliverables, not guaranteed outcomes.",
+    category: "Build",
+    headline: "Create the digital experience.",
+    body: "We build the pages, assets and communications the campaign needs.",
+    examples: ["Artist websites", "Release pages", "Landing pages", "Fan signup journeys", "Digital assets", "Email campaigns"],
+    note: "Made to fit the campaign, not bolted on.",
     tone: "lav",
   },
   {
     number: "03",
-    category: "Digital Partnership",
-    headline: "Your digital work.\nHandled.",
-    body: "For artists and music teams that need ongoing support, SHOWGUY can become an external creative and digital partner.",
+    category: "Run",
+    headline: "Keep the campaign moving.",
+    body: "We coordinate the digital execution, keep priorities organised and help your team stay on top of the campaign.",
     examples: [
-      "Ongoing digital project coordination",
-      "Website and landing-page updates",
-      "Campaign support",
-      "Digital communications",
+      "Campaign coordination",
+      "Website updates",
+      "Launch communications",
       "Asset coordination",
-      "Email campaign management",
-      "Monthly planning and reporting",
+      "Reporting",
+      "Monthly planning",
     ],
-    note: "An agreed monthly scope, confirmed before work begins.",
+    note: "Scope is agreed before work begins.",
     tone: "dark",
   },
+];
+
+/** The same work, grouped by capability: a quick-scan summary under the three pillars. */
+export const capabilities = [
+  { area: "Strategy", items: ["Release planning", "Campaign concepts", "Timelines", "Creative direction"] },
+  { area: "Web", items: ["Artist websites", "Release pages", "Landing pages", "Fan signup journeys"] },
+  { area: "Communications", items: ["Email campaigns", "Release announcements", "Fan communications", "Launch messaging"] },
+  { area: "Digital execution", items: ["Campaign coordination", "Asset organisation", "Digital rollout", "Updates and implementation"] },
+  { area: "Insights", items: ["Reporting", "Campaign review", "Lessons for the next project"] },
 ];
 
 export const processSteps = [
   {
     title: "Discover",
-    body: "We get to know your project, your team and what you're trying to achieve.",
+    body: "We understand the artist, release, project and team.",
   },
   {
     title: "Plan",
-    body: "We define the work, agree the deliverables and build a clear plan.",
+    body: "We define the campaign, deliverables and timeline.",
   },
   {
-    title: "Create",
-    body: "We bring the project to life through creative direction, digital production and coordinated execution.",
+    title: "Build & execute",
+    body: "We create the digital pieces and keep the campaign moving.",
   },
   {
-    title: "Deliver",
-    body: "You get the finished work, clear communication and support throughout.",
+    title: "Review",
+    body: "We look at what happened, what worked and what should happen next.",
   },
 ];
 
-/** Floating labels in "There's more to music than making music." */
+/** Floating labels in "Releasing the music is only half the job." */
 export const musicWork = [
-  "Build the website",
-  "Launch the campaign",
-  "Update the artist pages",
-  "Plan the release",
+  "Build the release page",
+  "Plan the campaign",
   "Coordinate the assets",
-  "Create the landing page",
-  "Send the newsletter",
-  "Track the results",
+  "Update the website",
+  "Send the launch email",
   "Brief the creatives",
-  "Keep everything moving",
+  "Build the fan journey",
+  "Track the deadlines",
+  "Publish the campaign",
+  "Review the results",
 ];
 
-/** "Built for people who take music seriously." */
+/** "Built for people with music to launch." */
 export const audiences = [
   {
     title: "Independent artists",
-    body: "Building your career, releasing music and developing your identity.",
+    body: "Releasing music and building a professional project around it.",
     tone: "deep",
   },
   {
     title: "Artist managers",
-    body: "Managing artists and juggling the digital work behind their careers.",
+    body: "Coordinating artists, releases and all the digital work that comes with them.",
     tone: "lav",
   },
   {
     title: "Independent labels",
-    body: "Releasing music and coordinating creative projects across a roster.",
+    body: "Running release pipelines across multiple artists and campaigns.",
     tone: "dark",
   },
   {
     title: "Promoters & music businesses",
-    body: "Creating experiences, promoting shows and building a stronger digital presence.",
+    body: "Launching shows, projects and music-led digital experiences.",
     tone: "violet",
   },
 ] as const;
@@ -139,4 +132,4 @@ export const visionWords = [
 ];
 
 /** The small line of words above the hero headline. */
-export const heroTags = ["Websites", "Campaigns", "Creative", "Digital"];
+export const heroTags = ["Strategy", "Websites", "Communications", "Execution"];

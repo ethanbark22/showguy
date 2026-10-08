@@ -156,7 +156,7 @@ The site records a few simple events (no personal details, ever): `application_s
 - [ ] Company number in `src/config/site.ts`
 - [ ] Email and social links in `src/config/site.ts`
 - [ ] Form destination set (section 8) and tested on the live site
-- [ ] Real Privacy Policy, Terms and Cookie Policy copy (pages in `src/app/privacy`, `terms`, `cookies`). Then remove `noindex: true` from each page and add them to `src/app/sitemap.ts`
+- [ ] Fill in the legal details in `src/config/site.ts` (`legal`): registered office, privacy email (falls back to the general email), enquiry retention period. Check the "Last updated" dates.
 - [ ] Custom domain connected and `NEXT_PUBLIC_SITE_URL` set
 
 ## Growing the site later
@@ -173,3 +173,18 @@ src/components/sections/   the homepage sections, one file each
 src/app/             pages: /, /apply, /contact, legal, sitemap, robots
 src/lib/             form definitions, delivery, metadata helpers
 ```
+
+
+---
+
+## Legal pages (internal note)
+
+These website legal pages are operational drafts based on the current SHOWGUY website and service model. They have not been reviewed by a solicitor and should be reviewed if SHOWGUY materially changes its data practices, introduces advertising/tracking technologies, begins processing sensitive data, or materially changes its services.
+
+How they work:
+
+- Pages: `src/app/privacy`, `src/app/cookies`, `src/app/terms`. Wording lives in those files; business details come from `src/config/site.ts` (`company`, `legal`, `serviceProviders`) so nothing is hard-coded.
+- Anything left empty in config (registered office, privacy email, retention period) is simply not shown. No placeholders ever appear to visitors.
+- **Service providers** named in the Privacy Policy are the ones marked `inUse: true` in `serviceProviders`. Switch one on only when you really use it (Google Workspace, Brevo, Stripe are currently off).
+- **Cookie table** on `/cookies` is built from what is switched on in `src/config/analytics.ts`. Today the site sets no cookies and uses Vercel's cookieless analytics, so there is no cookie banner. Turning on Google Analytics, Meta Pixel or TikTok Pixel makes the banner (Accept all / Reject all / Manage preferences) appear automatically, keeps those tools blocked until a visitor opts in, and lists them in the table. Update the policy wording first.
+- The enquiry forms show a short privacy notice beside the send button and have no marketing tick box. If you later want a mailing list, add a separate, optional, un-ticked consent box.

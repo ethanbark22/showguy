@@ -3,11 +3,10 @@ import { site } from "@/config/site";
 import { getPosts, hasPublishedPosts } from "@/lib/journal";
 
 /**
- * Pages listed for search engines. The legal pages are left out while they are
- * placeholders. Add them (and remove `noindex` on the pages) once real copy is in.
+ * Pages listed for search engines.
  * Future sections (/journal, /artists…) get added here.
  */
-const routes = ["/", "/apply", "/contact"];
+const routes = ["/", "/apply", "/contact", "/privacy", "/cookies", "/terms"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // The Journal joins the sitemap only once real articles are published

@@ -23,3 +23,9 @@ export const needsConsent = Boolean(
     analytics.metaPixelId ||
     analytics.tiktokPixelId,
 );
+
+/** Which consent categories apply right now (a category only appears in the banner if a tool in it is switched on). */
+export const consentCategories = {
+  analytics: Boolean(analytics.googleAnalyticsId),
+  marketing: Boolean(analytics.metaPixelId || analytics.tiktokPixelId),
+};

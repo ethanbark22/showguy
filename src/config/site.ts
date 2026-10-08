@@ -73,3 +73,35 @@ export const founder = {
   /** Keeps faces in frame when the photo is cropped. "50% 20%" = centred, a little above the middle. */
   objectPosition: "50% 20%",
 } as const;
+
+/**
+ * LEGAL DETAILS used by the Privacy Policy, Cookie Policy and Website Terms.
+ * Anything left as "" is simply not shown to visitors (no placeholders ever appear).
+ */
+export const legal = {
+  /** Registered office address, e.g. "1 Example Street, Leeds, LS1 1AA". Shown only when filled in. */
+  registeredOffice: "",
+  /** Where privacy requests go. If empty, the general email in `site.email` is used. */
+  privacyEmail: "",
+  /** How long general enquiries are kept, e.g. "12 months". Left empty until you approve a period. */
+  enquiryRetentionPeriod: "",
+  /** "Last updated" dates shown at the bottom of each legal page. Update when you change the wording. */
+  privacyLastUpdated: "8 October 2026",
+  cookieLastUpdated: "8 October 2026",
+  termsLastUpdated: "8 October 2026",
+} as const;
+
+/** The email to show for privacy questions (falls back to the general email). */
+export const privacyContactEmail = () => legal.privacyEmail || site.email;
+
+/**
+ * Companies SHOWGUY actually uses that handle personal information. Only those
+ * with `inUse: true` are named on the Privacy Policy. Switch one on when you start using it.
+ */
+export const serviceProviders = [
+  { name: "Vercel", does: "website hosting and privacy-friendly website analytics", inUse: true },
+  { name: "Resend", does: "delivering enquiry notifications and emails", inUse: true },
+  { name: "Google Workspace", does: "email and file storage", inUse: false },
+  { name: "Brevo", does: "email communications", inUse: false },
+  { name: "Stripe", does: "payment processing", inUse: false },
+] as const;

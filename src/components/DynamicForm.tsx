@@ -289,10 +289,11 @@ export function DynamicForm({ groups, action, submitLabel, success, successHref,
           {redirecting ? "Sent. One moment…" : pending ? "Sending…" : submitLabel}
         </Button>
         <p className="mt-4 max-w-md text-sm text-mute-text">
-          We only use your details to look at your enquiry and respond to you.{" "}
+          By sending this form, you agree that SHOWGUY may use the information you provide to review and respond to your enquiry. See our{" "}
           <Link href="/privacy" className="font-bold text-lav underline underline-offset-2">
             Privacy Policy
           </Link>
+          .
         </p>
         {closingExtra}
       </div>

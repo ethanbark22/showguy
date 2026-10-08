@@ -12,7 +12,7 @@ export const primaryCta: NavItem = { label: "Work With Us", href: "/apply" };
 
 export const legalNav: NavItem[] = [
   { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms", href: "/terms" },
+  { label: "Website Terms", href: "/terms" },
   { label: "Cookie Policy", href: "/cookies" },
 ];
 
